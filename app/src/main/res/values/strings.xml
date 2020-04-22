@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MusicApp</string>
+    <string name="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultricies magna id sollicitudin consequat. Donec imperdiet, dolor quis pulvinar ornare, leo purus ullamcorper ante, id tempus lacus risus vel nisi</string>
+    <string name="card_about">About</string>
+    <string name="card_more_details">More Details</string>
+    <string name="sample">Sample</string>
+</resources>
