@@ -14,94 +14,28 @@
         android:layout_height="140dp"
         app:cardBackgroundColor="@color/sunflower"
         app:cardCornerRadius="16sp"
-        app:cardElevation="0dp" />
+        app:cardElevation="0dp">
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/main_listen_button"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/tomato"
-        android:elevation="8dp"
-        android:gravity="center"
-        android:text="@string/sample"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@id/main_album_card"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_album_card" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/main_text_card"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_margin="16dp"
-        android:ellipsize="start"
-        android:fontFamily="@font/edo"
-        android:gravity="center|start"
-        android:lineSpacingExtra="4dp"
-        android:maxLines="11"
-        android:paddingStart="22dp"
-        android:paddingEnd="22dp"
-        android:paddingBottom="22dp"
-        android:text="@string/text"
-        android:textAppearance="?textAppearanceHeadline6"
-        android:textSize="12sp"
-        app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toBottomOf="@id/main_album_card"
-        app:layout_constraintEnd_toEndOf="@id/main_album_card"
-        app:layout_constraintStart_toStartOf="@id/main_album_card"
-        app:layout_constraintTop_toBottomOf="@id/main_title_card" />
+            <ImageView
+                android:id="@+id/fluidTopLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/main_title_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        android:layout_margin="16dp"
-        android:fontFamily="@font/edo"
-        android:gravity="center"
-        android:text="@string/card_about"
-        android:textAppearance="?textAppearanceHeadline6"
-        android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="@id/main_album_card"
-        app:layout_constraintTop_toTopOf="@id/main_album_card" />
+    </com.google.android.material.card.MaterialCardView>
 
-    <TextView
-        android:id="@+id/main_band_genre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/alata_regular"
-        android:text="Rock"
-        android:textAppearance="?textAppearanceHeadline5"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/main_band_name"
-        app:layout_constraintTop_toBottomOf="@id/main_band_name" />
+    <include layout="@layout/end_motion_extended_card_info" />
 
-    <TextView
-        android:id="@+id/main_band_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/alata_regular"
-        android:text="Fresno"
-        android:textAppearance="?textAppearanceHeadline6"
-        android:textSize="24sp" />
+    <include layout="@layout/middle_motion_card_info" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/main_more_details_card"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@android:color/transparent"
-        android:gravity="center"
-        android:text="@string/card_more_details"
-        app:cornerRadius="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/main_title_card"
-        app:layout_constraintEnd_toEndOf="@id/main_album_card"
-        app:layout_constraintTop_toTopOf="@+id/main_title_card" />
+    <include layout="@layout/scrolling_bottom_details" />
 
     <ImageView
         android:id="@+id/main_album_cover"
@@ -111,5 +45,7 @@
         android:elevation="8dp"
         android:scaleType="centerCrop"
         android:src="@drawable/fresno_album_cover" />
+
+
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

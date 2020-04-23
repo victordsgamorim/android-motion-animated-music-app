@@ -75,6 +75,16 @@
                 app:framePosition="80"
                 app:motionTarget="@id/main_listen_button" />
 
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="80"
+                app:motionTarget="@id/main_rating_star" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="80"
+                app:motionTarget="@id/main_rating_score" />
+
 
         </KeyFrameSet>
 
@@ -144,11 +154,26 @@
             <PropertySet android:alpha="0" />
         </Constraint>
 
+        <Constraint android:id="@+id/scrolling_band_details">
+            <PropertySet android:alpha="0" />
+            <Transform android:translationY="24dp" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_rating_star">
+            <PropertySet android:alpha="0" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_rating_score">
+            <PropertySet android:alpha="0" />
+        </Constraint>
+
     </ConstraintSet>
 
 
     <!--    MIDDLE MOTION-->
-    <ConstraintSet android:id="@+id/middle">
+    <ConstraintSet
+        android:id="@+id/middle"
+        app:deriveConstraintsFrom="@id/start">
 
         <Constraint android:id="@+id/main_album_cover">
             <Layout
@@ -204,15 +229,9 @@
                 app:layout_constraintEnd_toEndOf="@id/main_album_cover"
                 app:layout_constraintTop_toTopOf="@id/main_album_cover"
                 app:layout_constraintVertical_bias="0.2" />
-            <PropertySet android:alpha="0" />
-        </Constraint>
-
-        <Constraint android:id="@+id/main_band_genre">
-            <PropertySet android:alpha="0" />
-        </Constraint>
-
-        <Constraint android:id="@+id/main_listen_button">
-            <PropertySet android:alpha="0" />
+            <PropertySet
+                android:alpha="0"
+                android:translationY="-48dp" />
         </Constraint>
 
 
@@ -246,9 +265,7 @@
                 app:layout_constraintTop_toTopOf="@id/main_album_card"
                 app:layout_constraintVertical_bias="1" />
 
-            <Transform
-                android:elevation="16dp"
-                android:translationY="25dp" />
+            <Transform android:elevation="16dp" />
         </Constraint>
 
         <Constraint android:id="@+id/main_text_card">
@@ -280,6 +297,20 @@
         </Constraint>
 
         <Constraint android:id="@+id/main_listen_button">
+            <PropertySet android:alpha="1" />
+        </Constraint>
+
+        <Constraint android:id="@+id/scrolling_band_details">
+            <PropertySet android:alpha="1" />
+            <Transform android:translationY="0dp" />
+        </Constraint>
+
+
+        <Constraint android:id="@+id/main_rating_star">
+            <PropertySet android:alpha="1" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_rating_score">
             <PropertySet android:alpha="1" />
         </Constraint>
 
