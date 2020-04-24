@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
+        android:textColor="@android:color/white"
         android:id="@+id/main_text_card"
         android:layout_width="300dp"
         android:layout_height="300dp"
@@ -33,23 +34,21 @@
         android:fontFamily="@font/edo"
         android:gravity="center"
         android:text="@string/card_about"
-        android:textAppearance="?textAppearanceHeadline6"
-        android:textColor="@android:color/white"
+        android:textAppearance="?textAppearanceHeadline5"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="@id/main_album_card"
         app:layout_constraintTop_toTopOf="@id/main_album_card" />
 
 
-    <com.google.android.material.button.MaterialButton
+    <TextView
+        android:fontFamily="@font/edo"
         android:id="@+id/main_more_details_card"
-        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@android:color/transparent"
+        android:textAppearance="?textAppearanceHeadline6"
         android:gravity="center"
         android:text="@string/card_more_details"
-        app:cornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="@id/main_title_card"
         app:layout_constraintEnd_toEndOf="@id/main_album_card"
         app:layout_constraintTop_toTopOf="@+id/main_title_card" />

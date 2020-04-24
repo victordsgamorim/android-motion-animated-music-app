@@ -7,8 +7,8 @@
         style="@style/PlayButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sample"
         android:drawableLeft="@drawable/ic_play_stop"
+        android:text="@string/sample"
         app:layout_constraintBottom_toBottomOf="@id/main_album_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
@@ -34,6 +34,7 @@
         android:fontFamily="@font/alata_regular"
         android:text="4.8"
         android:textAppearance="?textAppearanceHeadline6"
+        android:textColor="@android:color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/main_rating_star"
         app:layout_constraintStart_toEndOf="@id/main_rating_star"
@@ -47,6 +48,7 @@
         android:fontFamily="@font/alata_regular"
         android:text="Rock"
         android:textAppearance="?textAppearanceHeadline5"
+        android:textColor="@android:color/white"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/main_band_name"
         app:layout_constraintTop_toBottomOf="@id/main_band_name" />
@@ -59,5 +61,6 @@
         android:fontFamily="@font/alata_regular"
         android:text="Fresno"
         android:textAppearance="?textAppearanceHeadline6"
+        android:textColor="@android:color/white"
         android:textSize="24sp" />
 </merge>

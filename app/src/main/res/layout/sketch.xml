@@ -120,4 +120,6 @@
         app:layout_constraintTop_toTopOf="@id/main_album_card"
         app:layout_constraintVertical_bias="1" />
 
+    <include layout="@layout/scrolling_bottom_details"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
