@@ -1,4 +1,4 @@
-package com.victor.musicapp.ui.recyclerview.adapter.motion
+package com.victor.musicapp.ui.viewpager.adapter.motion
 
 import android.util.Log
 import androidx.constraintlayout.motion.widget.MotionLayout

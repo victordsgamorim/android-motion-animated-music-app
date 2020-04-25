@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.victor.musicapp.R
 import com.victor.musicapp.model.Band
-import com.victor.musicapp.ui.recyclerview.adapter.ViewPagerAdapter
+import com.victor.musicapp.ui.viewpager.adapter.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 

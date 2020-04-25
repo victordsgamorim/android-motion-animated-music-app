@@ -1,4 +1,4 @@
-package com.victor.musicapp.ui.recyclerview.adapter
+package com.victor.musicapp.ui.viewpager.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.musicapp.R
 import com.victor.musicapp.model.Band
-import com.victor.musicapp.ui.recyclerview.adapter.callback.DiffUtilCallback
-import com.victor.musicapp.ui.recyclerview.adapter.motion.MotionItemInitializer
-import com.victor.musicapp.ui.recyclerview.adapter.motion.MotionLayoutListener
+import com.victor.musicapp.ui.viewpager.adapter.callback.DiffUtilCallback
+import com.victor.musicapp.ui.viewpager.adapter.motion.MotionItemInitializer
+import com.victor.musicapp.ui.viewpager.adapter.motion.MotionLayoutListener
 import kotlinx.android.synthetic.main.end_motion_extended_card_info.view.*
 import kotlinx.android.synthetic.main.start_item_motion_band.view.*
 
