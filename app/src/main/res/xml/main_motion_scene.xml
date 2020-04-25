@@ -8,11 +8,14 @@
         app:constraintSetStart="@id/start"
         app:duration="1000">
 
-        <OnSwipe
-            app:dragDirection="dragDown"
-            app:onTouchUp="autoComplete"
-            app:touchAnchorId="@id/main_album_cover"
-            app:touchRegionId="@id/main_album_cover" />
+        <OnClick app:clickAction="toggle"
+            app:targetId="@id/main_album_cover"/>
+
+<!--        <OnSwipe-->
+<!--            app:dragDirection="dragDown"-->
+<!--            app:onTouchUp="autoComplete"-->
+<!--            app:touchAnchorId="@id/main_album_cover"-->
+<!--            app:touchRegionId="@id/main_album_cover" />-->
 
         <KeyFrameSet>
             <KeyAttribute

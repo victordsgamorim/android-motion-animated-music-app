@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/item_motion_layout"
     app:layoutDescription="@xml/main_motion_scene"
-    app:showPaths="true"
-    tools:context=".MainActivity">
+    app:showPaths="true">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/main_album_card"
@@ -26,9 +26,9 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
