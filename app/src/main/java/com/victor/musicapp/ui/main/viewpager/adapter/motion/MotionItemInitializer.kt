@@ -1,4 +1,4 @@
-package com.victor.musicapp.ui.viewpager.adapter.motion
+package com.victor.musicapp.ui.main.viewpager.adapter.motion
 
 import android.content.Context
 import android.view.View

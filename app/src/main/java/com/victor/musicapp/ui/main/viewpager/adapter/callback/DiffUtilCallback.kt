@@ -1,4 +1,4 @@
-package com.victor.musicapp.ui.viewpager.adapter.callback
+package com.victor.musicapp.ui.main.viewpager.adapter.callback
 
 import androidx.recyclerview.widget.DiffUtil
 import com.victor.musicapp.model.Band

@@ -1,7 +1,7 @@
-package com.victor.musicapp.ui.viewpager.adapter.motion
+package com.victor.musicapp.ui.main.viewpager.adapter.motion
 
-import android.util.Log
 import androidx.constraintlayout.motion.widget.MotionLayout
+
 
 object MotionLayoutListener : MotionLayout.TransitionListener {
     override fun onTransitionTrigger(
@@ -23,11 +23,11 @@ object MotionLayoutListener : MotionLayout.TransitionListener {
         end: Int,
         progress: Float
     ) {
-        Log.e("MotionListener", progress.toString())
+
     }
 
     override fun onTransitionCompleted(motionLayout: MotionLayout?, current: Int) {
 
     }
-
 }
+
