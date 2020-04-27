@@ -4,13 +4,16 @@ import android.content.Context
 import android.view.View
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.victor.musicapp.R
+import com.victor.musicapp.databinding.StartItemMotionBandBinding
 import com.victor.musicapp.util.animationLoop
 import com.victor.musicapp.util.setAnimationToDrawable
 import kotlinx.android.synthetic.main.end_motion_extended_card_info.view.*
 import kotlinx.android.synthetic.main.start_item_motion_band.view.*
 
-data class MotionItemInitializer(private val context: Context, private val view: View) {
-
+class MotionItemInitializer(
+    private val context: Context,
+    private val view: View
+) {
     private var isClicked = true
 
     private val cardWaveForward by lazy {
@@ -57,7 +60,7 @@ data class MotionItemInitializer(private val context: Context, private val view:
         return fabButtonIcon
     }
 
-    fun startItemAnimation(){
+    fun startItemAnimation() {
         setWaveAnimationToCard()
         listenFloatActionButton()
     }

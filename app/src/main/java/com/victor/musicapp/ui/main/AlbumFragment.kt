@@ -12,6 +12,7 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import com.victor.musicapp.R
+import com.victor.musicapp.databinding.FragmentAlbumBinding
 import com.victor.musicapp.ui.BaseFragment
 import com.victor.musicapp.ui.main.viewpager.adapter.ViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_album.*
@@ -22,17 +23,19 @@ class AlbumFragment : BaseFragment() {
     @Inject
     lateinit var adapter: ViewPagerAdapter
 
+    lateinit var binding: FragmentAlbumBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_album, container, false)
+        binding = FragmentAlbumBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewpager.adapter = adapter
-
+        binding.viewpager.adapter = adapter
         setViewModelObserver()
         initViewPagerConfig()
 

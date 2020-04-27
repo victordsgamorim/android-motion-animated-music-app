@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/include_test">
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/main_listen_button"
@@ -61,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/alata_regular"
-        android:text="Fresno"
+        android:text="@{bandDetails.name}"
         android:textAppearance="?textAppearanceHeadline6"
         android:textColor="@android:color/white"
         android:textSize="24sp" />

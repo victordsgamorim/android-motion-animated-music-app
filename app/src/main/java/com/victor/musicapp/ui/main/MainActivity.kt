@@ -2,16 +2,18 @@ package com.victor.musicapp.ui.main
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.victor.musicapp.R
+import com.victor.musicapp.databinding.ActivityMainBinding
 import com.victor.musicapp.ui.BaseActivity
 
 class MainActivity : BaseActivity() {
 
     lateinit var viewModel: MainViewModel
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+         binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
     }
