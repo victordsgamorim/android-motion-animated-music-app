@@ -5,6 +5,6 @@
 
     <fragment
         android:id="@+id/albumFragment"
-        android:name="com.victor.musicapp.ui.main.AlbumFragment"
+        android:name="com.victor.musicapp.presenter.ui.main.AlbumFragment"
         android:label="AlbumFragment" />
 </navigation>

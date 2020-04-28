@@ -3,14 +3,14 @@
     package="com.victor.musicapp">
 
     <application
-        android:name=".di.BaseApplication"
+        android:name="com.victor.musicapp.presenter.di.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name="com.victor.musicapp.presenter.ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
