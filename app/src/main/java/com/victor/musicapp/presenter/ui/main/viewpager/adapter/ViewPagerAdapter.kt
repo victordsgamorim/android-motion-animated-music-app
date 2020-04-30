@@ -5,16 +5,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.RequestManager
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.victor.musicapp.databinding.EndMotionExtendedCardInfoBinding
 import com.victor.musicapp.databinding.StartItemMotionBandBinding
-import com.victor.musicapp.domain.model.Band
+import com.victor.musicapp.domain.dto.TrackItem
 import com.victor.musicapp.presenter.ui.main.viewpager.adapter.callback.DiffUtilCallback
 import com.victor.musicapp.presenter.ui.main.viewpager.adapter.motion.MotionItemInitializer
 import com.victor.musicapp.presenter.ui.main.viewpager.adapter.motion.MotionLayoutListener
 import kotlinx.android.synthetic.main.start_item_motion_band.view.*
 
-class ViewPagerAdapter
-    : ListAdapter<Band, ViewPagerAdapter.ViewHolder>(DiffUtilCallback) {
+class ViewPagerAdapter(private val requestManager: RequestManager) :
+    ListAdapter<TrackItem, ViewPagerAdapter.ViewHolder>(DiffUtilCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
@@ -46,9 +48,16 @@ class ViewPagerAdapter
             itemAnimationInitializer.startItemAnimation()
         }
 
-        fun bind(band: Band) {
+        fun bind(track: TrackItem) {
+            StartItemMotionBandBinding.bind(bindingRoot).run {
+                requestManager.load(track.album.images[0].url)
+                    .transition(withCrossFade())
+                    .into(this.mainAlbumCover)
+            }
+
+
             EndMotionExtendedCardInfoBinding.bind(bindingRoot).run {
-                mainBandName.text = band.name
+                this.mainBandName.text = track.name
             }
 
             bindingRoot.item_motion_layout.setTransitionListener(MotionLayoutListener)

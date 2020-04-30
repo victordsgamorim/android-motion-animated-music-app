@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/alata_regular"
-        android:text="@{bandDetails.name}"
+        android:text="Fresno"
         android:textAppearance="?textAppearanceHeadline6"
         android:textColor="@android:color/white"
         android:textSize="24sp" />

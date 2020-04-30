@@ -1,5 +1,7 @@
 package com.victor.musicapp.presenter.di.main
 
+import com.bumptech.glide.RequestManager
+import com.victor.musicapp.data.api.SpotifyService
 import com.victor.musicapp.data.repository.MainRepository
 import com.victor.musicapp.presenter.ui.main.viewpager.adapter.ViewPagerAdapter
 import dagger.Module
@@ -9,12 +11,9 @@ import dagger.Provides
 class MainModule {
 
     @Provides
-    fun provideMainRepository(): MainRepository {
-        return MainRepository()
-    }
+    fun provideMainRepository(service: SpotifyService) = MainRepository(service)
 
     @Provides
-    fun provideAdapter(): ViewPagerAdapter {
-        return ViewPagerAdapter()
-    }
+    fun provideAdapter(requestManager: RequestManager) = ViewPagerAdapter(requestManager)
+
 }

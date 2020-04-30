@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.RequestManager
 import com.victor.musicapp.R
 import com.victor.musicapp.databinding.FragmentAlbumBinding
 import com.victor.musicapp.presenter.ui.BaseFragment
@@ -40,13 +41,13 @@ class AlbumFragment : BaseFragment() {
     }
 
     private fun setViewModelObserver() {
-        viewModel.getBandList().observe(viewLifecycleOwner, Observer { list ->
-            adapter.submitList(list)
-        })
 
-        viewModel.getBandSize().observe(viewLifecycleOwner, Observer { size ->
-            setIndicators(size)
+        viewModel.getTrack().observe(viewLifecycleOwner, Observer {
+            val result = it?.result?.items
 
+            adapter.submitList(result)
+
+            setIndicators(adapter.itemCount)
             setIndicatorOn(0)
             binding.fragmentAlbumViewpager.registerOnPageChangeCallback(object :
                 ViewPager2.OnPageChangeCallback() {
@@ -55,11 +56,11 @@ class AlbumFragment : BaseFragment() {
                     setIndicatorOn(position)
                 }
             })
+
         })
-
-
     }
 
+    //This logic must be refactored in another class
     private fun setIndicators(size: Int) {
         val indicators = arrayOfNulls<ImageView>(size)
         val layout = LinearLayout.LayoutParams(

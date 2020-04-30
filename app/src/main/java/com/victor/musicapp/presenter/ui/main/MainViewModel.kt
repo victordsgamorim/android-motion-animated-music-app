@@ -2,8 +2,9 @@ package com.victor.musicapp.presenter.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.victor.musicapp.domain.model.Band
 import com.victor.musicapp.data.repository.MainRepository
+import com.victor.musicapp.domain.dto.SpotifyApiResponse
+import com.victor.musicapp.domain.model.Band
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
@@ -14,7 +15,7 @@ class MainViewModel @Inject constructor(
         return repository.getBandList()
     }
 
-    fun getBandSize(): LiveData<Int> {
-        return repository.getBandSize()
+    fun getTrack(): LiveData<SpotifyApiResponse> {
+        return repository.getTrack()
     }
 }

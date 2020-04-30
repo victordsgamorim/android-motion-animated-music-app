@@ -1,6 +1,8 @@
 package com.victor.musicapp.presenter.ui.main
 
 import android.os.Bundle
+import android.util.Log
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.victor.musicapp.databinding.ActivityMainBinding
 import com.victor.musicapp.presenter.ui.BaseActivity
@@ -12,11 +14,9 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-         binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
     }
-
-
 }
