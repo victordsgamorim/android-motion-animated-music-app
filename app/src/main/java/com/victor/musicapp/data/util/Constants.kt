@@ -2,21 +2,25 @@ package com.victor.musicapp.data.util
 
 object SpotifyConstants {
 
-    const val BASE_URL = "https://api.spotify.com/v1/"
-    private const val HEADER_ACCEPT = "application/json"
-    private const val HEADER_CONTENT_TYPE = "application/json"
-    private const val AUTH_TOKEN =
-        "BQBsJI0_ovB6CfEpUEwH9Z3UViK35aEGfCADnzu91ywJwB4tTW-yHCNTCFPBn_1x1_dYMTM151GzaBKEWZtMZAiwnKuin9q-g-ar6jJJciYkEhlP3VgLEWFJ6cLV8GwAX2WXK5Y9279dTWq4RvHctpFDdvyaBI2b8Pgj5P7KijTA6Ybuu9-uztu98iWysbM3-IKYTZLlLHmLnYALDUyCyKrZ4s22XyNtMsKc6TB0VkUwydudV9a6oUH8CZdch5vg82d4bSmfpFvjbhbqnQ"
-
-    val AUTH_HEADER_MAP = mutableMapOf<String, String>().apply {
-        this["Accept"] = HEADER_ACCEPT
-        this["Content-Type"] = HEADER_CONTENT_TYPE
-        this["Authorization"] = "Bearer $AUTH_TOKEN"
-    }
+    //artist track
+    const val BASE_URL_ALBUM = "https://api.spotify.com/v1/"
 
     const val SPOTIFY_ARTIST = "Fresno"
     const val SPOTIFY_TYPE = "track"
     const val ALBUM_LIMIT = 10
+
+
+    //generate token
+    const val BASE_URL_TOKEN = "https://accounts.spotify.com/api/"
+
+    val AUTH_TOKEN_HEADER =
+        "Basic NThiNzRmNDhmNjY0NDY1OTgyMGRlNDcwY2UyZDVjMjk6ODJlOTYwYjM1ODI3NDQ4NTg3OTA2ZjgyNTc4MDJiNTA="
+
+    val AUTH_TOKEN_ACCESS_MAP = mutableMapOf<String, String>().apply {
+        this["grant_type"] = "refresh_token"
+        this["refresh_token"] =
+            "AQBSOGxyBKm1edNYEIneyo2Xzl_-KazYogl-fET633xSCS02-zsD0eGUtWSBeDDYnBZ4dKYC3xn4HO2d1DEUNEXk1fbTp7vECvcXiavFhwWTuzSpA9Q1km9h0SQIaUJ-cz0"
+    }
 
 
 }
