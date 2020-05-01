@@ -16,6 +16,12 @@ object SpotifyConstants {
         this["refresh_token"] =
             "AQBSOGxyBKm1edNYEIneyo2Xzl_-KazYogl-fET633xSCS02-zsD0eGUtWSBeDDYnBZ4dKYC3xn4HO2d1DEUNEXk1fbTp7vECvcXiavFhwWTuzSpA9Q1km9h0SQIaUJ-cz0"
     }
+}
 
+object SharedPreferencesConstants {
+
+    const val SHARED_PREFERENCES_NAME = "com.victor.musicapp.Token"
+    const val GENERATED_TOKEN_TIME = "GeneratedTokenTime"
+    const val DEFAULT_LONG = -1L
 
 }

@@ -1,5 +1,6 @@
 package com.victor.musicapp.data.repository
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 class MainRepository @Inject constructor(
     private val service: SpotifyArtistTrackService,
-    private val tokenService: SpotifyTokenService
+    private val tokenService: SpotifyTokenService,
+    private val preftEditor: SharedPreferences.Editor
 ) {
 
     private var repositoryJob: Job? = null
@@ -25,6 +27,17 @@ class MainRepository @Inject constructor(
         return object : NetworkBoundResource<SpotifyTokenResponse, MainViewState>() {
 
             override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<SpotifyTokenResponse>) {
+
+                /** adding time in millis  into shared preferences in order to check its token if it is expired or not,
+                 * if yes, generate a new one
+                 * if not, search token in internal database*/
+
+//                preftEditor.putLong(GENERATED_TOKEN_TIME, oAuthToken.tokenTime)
+//                preftEditor.apply()
+
+                /**should also add oAuthToken to database */
+
+                /**response body being returned to Mediator Live Data inside the abstract class */
                 onCompleteResponse(
                     dataState = DataState.data(
                         data = MainViewState(spotifyTokenResponse = response.body)

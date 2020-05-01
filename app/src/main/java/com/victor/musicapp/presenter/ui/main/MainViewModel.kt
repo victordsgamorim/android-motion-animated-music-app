@@ -7,10 +7,9 @@ import androidx.lifecycle.ViewModel
 import com.victor.musicapp.data.repository.MainRepository
 import com.victor.musicapp.data.util.DataState
 import com.victor.musicapp.domain.dto.SpotifyApiResponse
-import com.victor.musicapp.domain.dto.SpotifyTokenResponse
-import com.victor.musicapp.domain.model.OAuthToken
 import com.victor.musicapp.presenter.ui.main.state.MainStateEvent
-import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.*
+import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.OAuthTokenEvent
+import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.SpotifyArtistTrackRequestEvent
 import com.victor.musicapp.presenter.ui.main.state.MainViewState
 import javax.inject.Inject
 
@@ -24,7 +23,7 @@ class MainViewModel @Inject constructor(
     val viewState: LiveData<MainViewState>
         get() = _viewState
 
-    // return the data triggered by the state event
+    /**return the data triggered by the state event*/
     val dataState: LiveData<DataState<MainViewState>> =
         switchMap(_stateEvent) { stateEvent ->
             when (stateEvent) {
@@ -37,15 +36,17 @@ class MainViewModel @Inject constructor(
             }
         }
 
-    //add new event in order to act as a trigger to start
-    // the search of some data from api or internal database
+    /**
+    add new event in order to act as a trigger to start
+    the search of some data from api or internal database*/
+
     fun addStateEvent(event: MainStateEvent) {
         _stateEvent.value = event
     }
 
-
-    // create new instance of view state by adding the found data state in repository
-    // the result of adding the new instance of view state is to update the UI view
+    /**
+    create new instance of view state by adding the found data state in repository
+    the result of adding the new instance of view state is to update the UI view */
     fun setArtistTrackViewState(spotifyApiResponse: SpotifyApiResponse) {
         val update = getCurrentViewState()
         if (update.spotifyApiResponse == spotifyApiResponse) {
@@ -59,7 +60,7 @@ class MainViewModel @Inject constructor(
         return _viewState.value?.let { it } ?: MainViewState()
     }
 
-    // Job cancellation
+    /**job cancellation*/
     fun cancelJob() {
         repository.cancelJob()
     }

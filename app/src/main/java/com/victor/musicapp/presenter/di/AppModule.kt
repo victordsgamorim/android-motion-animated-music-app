@@ -1,6 +1,8 @@
 package com.victor.musicapp.presenter.di
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
@@ -9,6 +11,7 @@ import com.victor.musicapp.R
 import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
 import com.victor.musicapp.data.util.LiveDataCallAdapterFactory
+import com.victor.musicapp.data.util.SharedPreferencesConstants.SHARED_PREFERENCES_NAME
 import com.victor.musicapp.data.util.SpotifyConstants.BASE_URL_ALBUM
 import com.victor.musicapp.data.util.SpotifyConstants.BASE_URL_TOKEN
 import dagger.Module
@@ -101,5 +104,16 @@ object AppModule {
     @Provides
     fun provideGlideInstance(application: Application, requestOptions: RequestOptions) =
         Glide.with(application).setDefaultRequestOptions(requestOptions)
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(application: Application) =
+        application.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideSharedPreferencesEditor(pref: SharedPreferences) = pref.edit()
 
 }
