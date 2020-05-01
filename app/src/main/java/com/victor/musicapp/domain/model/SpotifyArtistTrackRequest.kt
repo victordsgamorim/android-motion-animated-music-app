@@ -1,4 +1,4 @@
-package com.victor.musicapp.domain.dto
+package com.victor.musicapp.domain.model
 
 data class SpotifyArtistTrackRequest(
     val acceptHeader: String = "application/json",
@@ -13,5 +13,12 @@ data class SpotifyArtistTrackRequest(
             this["Content-Type"] = contentTypeHeader
             this["Authorization"] = "$authTokenType $authToken"
         }
+
+    val queryMapArtistMap = mutableMapOf<String, String>().apply {
+        this["q"] = "Fresno"
+        this["type"] = "track"
+        this["limit"] = "10"
+    }
+
 
 }

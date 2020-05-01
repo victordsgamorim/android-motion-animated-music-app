@@ -7,7 +7,6 @@ import retrofit2.http.*
 
 interface SpotifyTokenService {
 
-
     @POST("token")
     @FormUrlEncoded
     fun generateNewToken(

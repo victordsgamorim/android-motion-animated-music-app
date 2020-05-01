@@ -6,12 +6,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.victor.musicapp.R
-import com.victor.musicapp.data.api.SpotifyService
+import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
 import com.victor.musicapp.data.util.LiveDataCallAdapterFactory
 import com.victor.musicapp.data.util.SpotifyConstants.BASE_URL_ALBUM
 import com.victor.musicapp.data.util.SpotifyConstants.BASE_URL_TOKEN
-import com.victor.musicapp.presenter.di.main.MainScope
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -87,7 +86,7 @@ object AppModule {
     fun provideSportifyservice(
         @Named("retrofit_artist_album") retrofit: Retrofit
     ) =
-        retrofit.create(SpotifyService::class.java)
+        retrofit.create(SpotifyArtistTrackService::class.java)
 
     @JvmStatic
     @Singleton

@@ -5,14 +5,12 @@ import com.victor.musicapp.domain.dto.SpotifyApiResponse
 import com.victor.musicapp.data.util.GenericApiResponse
 import retrofit2.http.*
 
-interface SpotifyService {
+interface SpotifyArtistTrackService {
 
     @GET("search?")
     fun getTrack(
         @HeaderMap headers: Map<String, String>,
-        @Query("q") artist: String,
-        @Query("type") type: String,
-        @Query("limit") limit: Int
+        @QueryMap map: Map<String, String>
     ): LiveData<GenericApiResponse<SpotifyApiResponse>>
 
 
