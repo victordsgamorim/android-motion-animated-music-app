@@ -3,6 +3,8 @@ package com.victor.musicapp.presenter.di
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
@@ -10,6 +12,9 @@ import com.google.gson.GsonBuilder
 import com.victor.musicapp.R
 import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
+import com.victor.musicapp.data.database.AppDatabase
+import com.victor.musicapp.data.database.dao.SpotifyArtistTrackDao
+import com.victor.musicapp.data.util.DATABASE_NAME
 import com.victor.musicapp.data.util.LiveDataCallAdapterFactory
 import com.victor.musicapp.data.util.SharedPreferencesConstants.SHARED_PREFERENCES_NAME
 import com.victor.musicapp.data.util.SpotifyConstants.BASE_URL_ALBUM
@@ -28,6 +33,8 @@ import javax.inject.Singleton
 @Module
 object AppModule {
 
+
+    /**retrofit*/
     @JvmStatic
     @Singleton
     @Provides
@@ -91,6 +98,8 @@ object AppModule {
     ) =
         retrofit.create(SpotifyArtistTrackService::class.java)
 
+
+    /**glide*/
     @JvmStatic
     @Singleton
     @Provides
@@ -105,6 +114,8 @@ object AppModule {
     fun provideGlideInstance(application: Application, requestOptions: RequestOptions) =
         Glide.with(application).setDefaultRequestOptions(requestOptions)
 
+
+    /**shared preferences*/
     @JvmStatic
     @Singleton
     @Provides
@@ -116,4 +127,18 @@ object AppModule {
     @Provides
     fun provideSharedPreferencesEditor(pref: SharedPreferences) = pref.edit()
 
+
+    /**database*/
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun providesAppDatabase(application: Application): AppDatabase =
+        Room.databaseBuilder(application, AppDatabase::class.java, DATABASE_NAME)
+            .build()
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideSpotifyArtistTrackDao(database: AppDatabase): SpotifyArtistTrackDao =
+        database.spotifyArtistTrackDao()
 }

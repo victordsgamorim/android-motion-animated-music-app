@@ -10,5 +10,5 @@ sealed class MainStateEvent {
     ) : MainStateEvent()
 
     data class OAuthTokenEvent(val oauthToken: OAuthToken) : MainStateEvent()
-
+    data class SearchTokenDatabaseEvent(val id: Long) : MainStateEvent()
 }

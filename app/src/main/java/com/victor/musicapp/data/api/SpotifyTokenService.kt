@@ -2,7 +2,7 @@ package com.victor.musicapp.data.api
 
 import androidx.lifecycle.LiveData
 import com.victor.musicapp.data.util.GenericApiResponse
-import com.victor.musicapp.domain.dto.SpotifyTokenResponse
+import com.victor.musicapp.data.api.response.SpotifyTokenResponse
 import retrofit2.http.*
 
 interface SpotifyTokenService {

@@ -1,6 +1,6 @@
 package com.victor.musicapp.data.util
 
-class DataState<T>(val data: T? = null, val error: String? = null) {
+class DataState<T>(val data: T? = null, val error: String? = null, val loading: Boolean = false) {
 
     companion object {
 
@@ -10,6 +10,10 @@ class DataState<T>(val data: T? = null, val error: String? = null) {
 
         fun <T> data(data: T): DataState<T> {
             return DataState(data = data)
+        }
+
+        fun <T> load(loading: Boolean): DataState<T> {
+            return DataState(loading = loading)
         }
     }
 }

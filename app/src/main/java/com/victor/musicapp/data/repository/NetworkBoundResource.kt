@@ -7,7 +7,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 
-abstract class NetworkBoundResource<Response, ViewState> {
+abstract class NetworkBoundResource<Response, ViewState>(isNetWorkRequested: Boolean = false) {
 
     private val result = MediatorLiveData<DataState<ViewState>>()
     private lateinit var coroutineScope: CoroutineScope
@@ -15,24 +15,37 @@ abstract class NetworkBoundResource<Response, ViewState> {
 
     init {
 
+        setResultValue(dataState = DataState.load(true))
+
         setJob(initJob())
 
-        coroutineScope.launch {
-            delay(1000)
+        if (isNetWorkRequested) {
 
-            withContext(Main) {
-                result.addSource(responseCall()) { response ->
-                    result.removeSource(responseCall())
+            coroutineScope.launch {
+                delay(1000)
 
-                    coroutineScope.launch {
-                        handleApiResponse(response)
-                    }
-
+                withContext(Main) {
+                    result.mediateApiData()
                 }
+
+            }
+
+        } else {
+            coroutineScope.launch {
+                loadCachedData()
+            }
+        }
+    }
+
+    private fun MediatorLiveData<DataState<ViewState>>.mediateApiData() {
+        this.addSource(responseCall()) { response ->
+            this.removeSource(responseCall())
+
+            coroutineScope.launch {
+                handleApiResponse(response)
             }
 
         }
-
     }
 
     private fun initJob(): Job {
@@ -79,6 +92,7 @@ abstract class NetworkBoundResource<Response, ViewState> {
     abstract fun setJob(job: Job)
     abstract suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<Response>)
     abstract fun responseCall(): LiveData<GenericApiResponse<Response>>
+    abstract suspend fun loadCachedData()
     val asLiveData = result as LiveData<DataState<ViewState>>
 
 }

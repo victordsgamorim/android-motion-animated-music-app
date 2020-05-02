@@ -6,10 +6,9 @@ import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
 import com.victor.musicapp.data.repository.MainRepository
 import com.victor.musicapp.data.util.DataState
-import com.victor.musicapp.domain.dto.SpotifyApiResponse
+import com.victor.musicapp.data.api.response.SpotifyApiResponse
 import com.victor.musicapp.presenter.ui.main.state.MainStateEvent
-import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.OAuthTokenEvent
-import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.SpotifyArtistTrackRequestEvent
+import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.*
 import com.victor.musicapp.presenter.ui.main.state.MainViewState
 import javax.inject.Inject
 
@@ -32,6 +31,9 @@ class MainViewModel @Inject constructor(
                 }
                 is OAuthTokenEvent -> {
                     repository.generateNewToken(stateEvent.oauthToken)
+                }
+                is SearchTokenDatabaseEvent -> {
+                    repository.getCurrentToken(stateEvent.id)
                 }
             }
         }

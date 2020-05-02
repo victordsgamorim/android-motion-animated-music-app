@@ -3,9 +3,9 @@ package com.victor.musicapp.data.util
 import java.util.*
 
 fun Long.isExpired(): Boolean {
-    val result = Calendar.getInstance().timeInMillis - this
+    val timeDiff = Calendar.getInstance().timeInMillis - this
 
-    if (result < 3600000) {
+    if (timeDiff < ONE_HOUR_IN_MILLIS) {
         return false
     }
     return true

@@ -1,5 +1,8 @@
 package com.victor.musicapp.data.util
 
+const val ONE_HOUR_IN_MILLIS = 3600000
+const val DATABASE_NAME = "musicapp.db"
+
 object SpotifyConstants {
 
     //artist track
@@ -22,6 +25,7 @@ object SharedPreferencesConstants {
 
     const val SHARED_PREFERENCES_NAME = "com.victor.musicapp.Token"
     const val GENERATED_TOKEN_TIME = "GeneratedTokenTime"
-    const val DEFAULT_LONG = -1L
+    const val GENERATED_TOKEN_ID = "GeneratedToken_ID"
+    const val LONG_DEFAULT = -1L
 
 }
