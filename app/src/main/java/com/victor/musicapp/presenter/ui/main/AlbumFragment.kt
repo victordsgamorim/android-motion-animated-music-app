@@ -42,7 +42,7 @@ class AlbumFragment : BaseFragment() {
     private fun setViewModelObserver() {
 
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
-            val result = viewState.spotifyApiResponse?.result?.items
+            val result = viewState.track?.items!!
             adapter.submitList(result)
 
             setIndicators(adapter.itemCount)

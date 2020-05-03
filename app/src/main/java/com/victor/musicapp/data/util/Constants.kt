@@ -2,6 +2,7 @@ package com.victor.musicapp.data.util
 
 const val ONE_HOUR_IN_MILLIS = 3600000
 const val DATABASE_NAME = "musicapp.db"
+const val TOKEN_DB_ID: Long = 1L
 
 object SpotifyConstants {
 
@@ -10,6 +11,7 @@ object SpotifyConstants {
 
     //generate token
     const val BASE_URL_TOKEN = "https://accounts.spotify.com/api/"
+    const val STATUS_ERROR = 401
 
     val OAUTH_TOKEN_HEADER =
         "Basic NThiNzRmNDhmNjY0NDY1OTgyMGRlNDcwY2UyZDVjMjk6ODJlOTYwYjM1ODI3NDQ4NTg3OTA2ZjgyNTc4MDJiNTA="

@@ -1,6 +1,5 @@
 package com.victor.musicapp.presenter.ui
 
-import android.content.SharedPreferences
 import android.util.Log
 import com.victor.musicapp.data.util.DataState
 import com.victor.musicapp.data.util.OnDataStateChangeListener
@@ -12,10 +11,6 @@ abstract class BaseActivity : DaggerAppCompatActivity(), OnDataStateChangeListen
 
     @Inject
     protected lateinit var factory: ViewModelProviderFactory
-
-    @Inject
-    protected lateinit var pref: SharedPreferences
-
     override fun onDataStateChanged(dataState: DataState<*>) {
         onLoadingData(dataState.loading)
 

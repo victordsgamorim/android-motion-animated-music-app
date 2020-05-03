@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
@@ -14,6 +13,7 @@ import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
 import com.victor.musicapp.data.database.AppDatabase
 import com.victor.musicapp.data.database.dao.SpotifyArtistTrackDao
+import com.victor.musicapp.data.database.dao.TrackDao
 import com.victor.musicapp.data.util.DATABASE_NAME
 import com.victor.musicapp.data.util.LiveDataCallAdapterFactory
 import com.victor.musicapp.data.util.SharedPreferencesConstants.SHARED_PREFERENCES_NAME
@@ -141,4 +141,11 @@ object AppModule {
     @Provides
     fun provideSpotifyArtistTrackDao(database: AppDatabase): SpotifyArtistTrackDao =
         database.spotifyArtistTrackDao()
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun providesTrackDao(database: AppDatabase): TrackDao =
+        database.trackDao()
+
 }

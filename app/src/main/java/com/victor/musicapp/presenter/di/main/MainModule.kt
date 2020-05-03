@@ -5,6 +5,7 @@ import com.bumptech.glide.RequestManager
 import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
 import com.victor.musicapp.data.database.dao.SpotifyArtistTrackDao
+import com.victor.musicapp.data.database.dao.TrackDao
 import com.victor.musicapp.data.repository.MainRepository
 import com.victor.musicapp.presenter.ui.main.viewpager.adapter.ViewPagerAdapter
 import dagger.Module
@@ -19,9 +20,18 @@ class MainModule {
         service: SpotifyArtistTrackService,
         tokenService: SpotifyTokenService,
         prefEditor: SharedPreferences.Editor,
-        artistTrackDao: SpotifyArtistTrackDao
+        pref: SharedPreferences,
+        spotifyArtistTrackDao: SpotifyArtistTrackDao,
+        trackDao: TrackDao
     ) =
-        MainRepository(service, tokenService, prefEditor, artistTrackDao)
+        MainRepository(
+            service,
+            tokenService,
+            prefEditor,
+            pref,
+            spotifyArtistTrackDao,
+            trackDao
+        )
 
     @MainScope
     @Provides

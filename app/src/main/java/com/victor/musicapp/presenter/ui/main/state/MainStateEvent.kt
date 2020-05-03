@@ -5,10 +5,15 @@ import com.victor.musicapp.domain.model.SpotifyArtistTrackRequest
 
 sealed class MainStateEvent {
 
+    object CheckTokenIntegrityEvent : MainStateEvent()
+
+    data class OAuthTokenEvent(val oauthToken: OAuthToken) : MainStateEvent()
+
+    object SearchTokenDatabaseEvent : MainStateEvent()
+
     data class SpotifyArtistTrackRequestEvent(
         var spotifyArtistTrackRequest: SpotifyArtistTrackRequest
     ) : MainStateEvent()
 
-    data class OAuthTokenEvent(val oauthToken: OAuthToken) : MainStateEvent()
-    data class SearchTokenDatabaseEvent(val id: Long) : MainStateEvent()
+
 }

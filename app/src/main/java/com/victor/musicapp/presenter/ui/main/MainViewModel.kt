@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
+import com.victor.musicapp.data.api.response.Track
 import com.victor.musicapp.data.repository.MainRepository
 import com.victor.musicapp.data.util.DataState
-import com.victor.musicapp.data.api.response.SpotifyApiResponse
 import com.victor.musicapp.presenter.ui.main.state.MainStateEvent
 import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.*
 import com.victor.musicapp.presenter.ui.main.state.MainViewState
@@ -26,14 +26,17 @@ class MainViewModel @Inject constructor(
     val dataState: LiveData<DataState<MainViewState>> =
         switchMap(_stateEvent) { stateEvent ->
             when (stateEvent) {
-                is SpotifyArtistTrackRequestEvent -> {
-                    repository.getTrackResponse(stateEvent.spotifyArtistTrackRequest)
+                is CheckTokenIntegrityEvent -> {
+                    repository.checkTokenIntegrity()
+                }
+                is SearchTokenDatabaseEvent -> {
+                    repository.getCurrentToken()
                 }
                 is OAuthTokenEvent -> {
                     repository.generateNewToken(stateEvent.oauthToken)
                 }
-                is SearchTokenDatabaseEvent -> {
-                    repository.getCurrentToken(stateEvent.id)
+                is SpotifyArtistTrackRequestEvent -> {
+                    repository.getTrackResponse(stateEvent.spotifyArtistTrackRequest)
                 }
             }
         }
@@ -49,12 +52,12 @@ class MainViewModel @Inject constructor(
     /**
     create new instance of view state by adding the found data state in repository
     the result of adding the new instance of view state is to update the UI view */
-    fun setArtistTrackViewState(spotifyApiResponse: SpotifyApiResponse) {
+    fun setTrackViewState(track: Track) {
         val update = getCurrentViewState()
-        if (update.spotifyApiResponse == spotifyApiResponse) {
+        if (update.track == track) {
             return
         }
-        update.spotifyApiResponse = spotifyApiResponse
+        update.track = track
         _viewState.value = update
     }
 

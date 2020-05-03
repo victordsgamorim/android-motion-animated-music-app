@@ -1,18 +1,34 @@
 package com.victor.musicapp.data.api.response
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.victor.musicapp.domain.model.SpotifyArtistTrackRequest
 
+@Entity(
+    tableName = "track",
+    foreignKeys = [ForeignKey(
+        entity = SpotifyArtistTrackRequest::class,
+        parentColumns = ["auth_token"],
+        childColumns = ["tokenId"],
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
+)
 data class Track(
 
     @SerializedName("items")
     @Expose
     val items: List<TrackItem>,
 
-    @SerializedName("id")
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "tokenId")
     @Expose
-    val id: String
-
+    val tokenId: String
 )
 
 data class TrackItem(
