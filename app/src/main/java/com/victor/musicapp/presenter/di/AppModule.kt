@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -103,7 +104,7 @@ object AppModule {
     @JvmStatic
     @Singleton
     @Provides
-    fun provideRequestOption() = RequestOptions
+    fun provideRequestOption():RequestOptions = RequestOptions
         .placeholderOf(R.drawable.fresno_album_cover)
         .error(R.drawable.fresno_album_cover)
 
@@ -111,7 +112,10 @@ object AppModule {
     @JvmStatic
     @Singleton
     @Provides
-    fun provideGlideInstance(application: Application, requestOptions: RequestOptions) =
+    fun provideGlideInstance(
+        application: Application,
+        requestOptions: RequestOptions
+    ): RequestManager =
         Glide.with(application).setDefaultRequestOptions(requestOptions)
 
 

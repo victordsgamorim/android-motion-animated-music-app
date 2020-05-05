@@ -26,8 +26,13 @@ class MainActivity : BaseActivity() {
 
         setActivityBinding()
         initViewModel()
+        checkTokenIntegrity()
         setViewModelObservers()
         navControllerDestinationChangedListener()
+    }
+
+    private fun checkTokenIntegrity() {
+        addEventToViewModel(CheckTokenIntegrityEvent)
     }
 
     private fun setActivityBinding() {
@@ -40,10 +45,6 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setViewModelObservers() {
-
-        val event = CheckTokenIntegrityEvent
-        addEventToViewModel(event)
-
         viewModel.dataState.observe(this, Observer { dataState ->
             onDataStateChanged(dataState)
 

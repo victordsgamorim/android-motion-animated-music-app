@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        android:id="@+id/motionStartToMiddle"
+        app:constraintSetEnd="@id/middle"
+        app:constraintSetStart="@id/start"
+        app:duration="1000">
+
+        <OnClick
+            app:clickAction="toggle"
+            app:targetId="@id/main_album_cover" />
+
+        <KeyFrameSet>
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="80"
+                app:motionTarget="@id/main_title_card" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="80"
+                app:motionTarget="@id/main_text_card" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="80"
+                app:motionTarget="@id/main_more_details_card" />
+
+        </KeyFrameSet>
+
+    </Transition>
+
+    <!--START MOTION-->
+    <ConstraintSet android:id="@+id/start">
+        <Constraint android:id="@+id/main_album_cover">
+            <Layout
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.3" />
+            <Transform
+                android:rotationX="0"
+                android:translationY="0dp" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_album_card">
+            <Layout
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <Transform android:rotationX="-55" />
+            <CustomAttribute
+                app:attributeName="radius"
+                app:customDimension="16dp" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_text_card">
+            <PropertySet android:alpha="0" />
+            <Transform android:rotationX="-55" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_title_card">
+            <PropertySet android:alpha="0" />
+            <Transform android:rotationX="-55" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_more_details_card">
+            <PropertySet android:alpha="0" />
+            <Transform android:rotationX="-55" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_band_name">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/main_album_cover"
+                app:layout_constraintEnd_toEndOf="@id/main_album_cover"
+                app:layout_constraintTop_toTopOf="@id/main_album_cover"
+                app:layout_constraintVertical_bias="0.2" />
+            <PropertySet android:alpha="0" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_band_genre">
+            <PropertySet android:alpha="0" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_listen_button">
+            <PropertySet android:alpha="0" />
+        </Constraint>
+
+        <Constraint android:id="@+id/scrolling_band_details">
+            <PropertySet android:alpha="0" />
+            <Transform android:translationY="24dp" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_rating_star">
+            <PropertySet android:alpha="0" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_rating_score">
+            <PropertySet android:alpha="0" />
+        </Constraint>
+
+    </ConstraintSet>
+
+
+    <!--    MIDDLE MOTION-->
+    <ConstraintSet
+        android:id="@+id/middle"
+        app:deriveConstraintsFrom="@id/start">
+
+        <Constraint android:id="@+id/main_album_cover">
+            <Layout
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_album_card" />
+            <Transform
+                android:rotationX="-55"
+                android:translationY="-48dp" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_album_card">
+            <Layout
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <Transform
+                android:rotationX="0"
+                android:translationY="-25dp" />
+
+            <CustomAttribute
+                app:attributeName="radius"
+                app:customDimension="16dp" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_text_card">
+            <PropertySet android:alpha="1" />
+            <Transform android:rotationX="0" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_title_card">
+            <PropertySet android:alpha="1" />
+            <Transform android:rotationX="0" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_more_details_card">
+            <PropertySet android:alpha="1" />
+            <Transform android:rotationX="0" />
+        </Constraint>
+
+        <Constraint android:id="@+id/main_band_name">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/main_album_cover"
+                app:layout_constraintEnd_toEndOf="@id/main_album_cover"
+                app:layout_constraintTop_toTopOf="@id/main_album_cover"
+                app:layout_constraintVertical_bias="0.2" />
+            <PropertySet
+                android:alpha="0"
+                android:translationY="-48dp" />
+        </Constraint>
+    </ConstraintSet>
+
+</MotionScene>

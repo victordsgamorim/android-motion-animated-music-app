@@ -4,7 +4,15 @@
     app:startDestination="@id/albumFragment">
 
     <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.victor.musicapp.presenter.ui.main.detail.DetailFragment"
+        android:label="DetailFragment" />
+    <fragment
         android:id="@+id/albumFragment"
-        android:name="com.victor.musicapp.presenter.ui.main.AlbumFragment"
-        android:label="AlbumFragment" />
+        android:name="com.victor.musicapp.presenter.ui.main.album.AlbumFragment"
+        android:label="AlbumFragment" >
+        <action
+            android:id="@+id/action_albumFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 </navigation>

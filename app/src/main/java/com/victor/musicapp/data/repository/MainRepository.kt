@@ -84,6 +84,16 @@ class MainRepository @Inject constructor(
             NetworkBoundResource<SpotifyTokenResponse, MainViewState>(isNetWorkRequested = true) {
 
             override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<SpotifyTokenResponse>) {
+
+                /**clean table if there is token
+                 * the reason of that is because I dont know want to store more than one token in
+                 * the database **/
+                val rowCount = spotifyArtistTrackDao.getRowCount()
+                if (rowCount > 0) {
+                    spotifyArtistTrackDao.cleanTable()
+                }
+
+
                 val result = response.body
                 val artistTrack = SpotifyArtistTrackRequest(
                     authToken = result.accessToken!!,

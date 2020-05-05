@@ -7,7 +7,7 @@ import com.victor.musicapp.data.api.SpotifyTokenService
 import com.victor.musicapp.data.database.dao.SpotifyArtistTrackDao
 import com.victor.musicapp.data.database.dao.TrackDao
 import com.victor.musicapp.data.repository.MainRepository
-import com.victor.musicapp.presenter.ui.main.viewpager.adapter.ViewPagerAdapter
+import com.victor.musicapp.presenter.ui.main.album.adapter.ViewPagerAdapter
 import dagger.Module
 import dagger.Provides
 

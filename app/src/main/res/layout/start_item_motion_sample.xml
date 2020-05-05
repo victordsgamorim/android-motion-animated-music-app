@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_motion_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutDescription="@xml/main_motion_scene"
+    app:layoutDescription="@xml/main_motion_scene_sample"
     app:showPaths="true">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/main_album_card"
         android:layout_width="140dp"
         android:layout_height="140dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:transitionName="album_card"
         app:cardBackgroundColor="@color/sunflower"
         app:cardCornerRadius="16sp"
         app:cardElevation="0dp">
@@ -34,11 +36,7 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <include layout="@layout/end_motion_extended_card_info" />
-
     <include layout="@layout/middle_motion_card_info" />
-
-    <include layout="@layout/scrolling_bottom_details" />
 
     <ImageView
         android:id="@+id/main_album_cover"
@@ -47,7 +45,6 @@
         android:adjustViewBounds="true"
         android:elevation="8dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/fresno_album_cover" />
-
-
+        android:src="@drawable/fresno_album_cover"
+        android:transitionName="album_cover" />
 </androidx.constraintlayout.motion.widget.MotionLayout>

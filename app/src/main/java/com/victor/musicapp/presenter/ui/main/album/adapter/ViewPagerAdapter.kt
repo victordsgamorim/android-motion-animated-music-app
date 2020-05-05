@@ -1,4 +1,4 @@
-package com.victor.musicapp.presenter.ui.main.viewpager.adapter
+package com.victor.musicapp.presenter.ui.main.album.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,22 +7,24 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
-import com.victor.musicapp.databinding.EndMotionExtendedCardInfoBinding
-import com.victor.musicapp.databinding.StartItemMotionBandBinding
 import com.victor.musicapp.data.api.response.TrackItem
-import com.victor.musicapp.presenter.ui.main.viewpager.adapter.callback.DiffUtilCallback
-import com.victor.musicapp.presenter.ui.main.viewpager.adapter.motion.MotionItemInitializer
-import com.victor.musicapp.presenter.ui.main.viewpager.adapter.motion.MotionLayoutListener
-import kotlinx.android.synthetic.main.start_item_motion_band.view.*
+import com.victor.musicapp.databinding.StartItemMotionSampleBinding
+import com.victor.musicapp.presenter.ui.main.album.adapter.callback.DiffUtilCallback
+import com.victor.musicapp.presenter.ui.main.album.adapter.motion.MotionItemInitializer
+import com.victor.musicapp.presenter.ui.main.album.adapter.motion.MotionLayoutListener
+import kotlinx.android.synthetic.main.start_item_motion_sample.view.*
 
-class ViewPagerAdapter(private val requestManager: RequestManager) :
+class ViewPagerAdapter(
+    private val requestManager: RequestManager,
+    var onItemClickListener: (TrackItem) -> Unit = {}
+) :
     ListAdapter<TrackItem, ViewPagerAdapter.ViewHolder>(DiffUtilCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val binding =
-            StartItemMotionBandBinding.inflate(inflater, parent, false)
+            StartItemMotionSampleBinding.inflate(inflater, parent, false)
         return ViewHolder(binding, context)
     }
 
@@ -32,7 +34,7 @@ class ViewPagerAdapter(private val requestManager: RequestManager) :
     }
 
     inner class ViewHolder(
-        private val itemBinding: StartItemMotionBandBinding,
+        private val itemBinding: StartItemMotionSampleBinding,
         context: Context
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
@@ -49,16 +51,21 @@ class ViewPagerAdapter(private val requestManager: RequestManager) :
         }
 
         fun bind(track: TrackItem) {
-            StartItemMotionBandBinding.bind(bindingRoot).run {
+
+            itemBinding.mainAlbumCard.setOnClickListener {
+                onItemClickListener(track)
+            }
+
+            StartItemMotionSampleBinding.bind(bindingRoot).run {
                 requestManager.load(track.album.images[0].url)
                     .transition(withCrossFade())
                     .into(this.mainAlbumCover)
             }
 
 
-            EndMotionExtendedCardInfoBinding.bind(bindingRoot).run {
-                this.mainBandName.text = track.name
-            }
+//            EndMotionExtendedCardInfoBinding.bind(bindingRoot).run {
+//                this.mainBandName.text = track.name
+//            }
 
             bindingRoot.item_motion_layout.setTransitionListener(MotionLayoutListener)
         }

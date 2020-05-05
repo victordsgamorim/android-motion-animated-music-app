@@ -12,8 +12,11 @@ interface SpotifyArtistTrackDao {
     @Query("SELECT * FROM artist_track_token WHERE token_time = :tokenTime")
     suspend fun getToken(tokenTime: Long): SpotifyArtistTrackRequest
 
-//    @Query("SELECT * FROM artist_track_token WHERE id = :id")
-//    suspend fun getToken(id: Long): SpotifyArtistTrackRequest
+    @Query("SELECT COUNT(auth_token) FROM artist_track_token")
+    suspend fun getRowCount(): Int
+
+    @Query("DELETE FROM artist_track_token")
+    suspend fun cleanTable()
 
 
 }

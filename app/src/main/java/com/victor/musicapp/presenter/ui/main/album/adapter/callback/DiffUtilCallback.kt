@@ -1,4 +1,4 @@
-package com.victor.musicapp.presenter.ui.main.viewpager.adapter.callback
+package com.victor.musicapp.presenter.ui.main.album.adapter.callback
 
 import androidx.recyclerview.widget.DiffUtil
 import com.victor.musicapp.data.api.response.TrackItem

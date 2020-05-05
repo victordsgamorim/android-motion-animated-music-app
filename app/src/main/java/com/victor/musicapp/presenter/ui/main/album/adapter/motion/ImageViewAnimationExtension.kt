@@ -1,4 +1,4 @@
-package com.victor.musicapp.presenter.ui.main.viewpager.adapter.motion
+package com.victor.musicapp.presenter.ui.main.album.adapter.motion
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
