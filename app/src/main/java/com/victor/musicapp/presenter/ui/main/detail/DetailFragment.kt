@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
-import com.victor.musicapp.R
 import com.victor.musicapp.databinding.EndMotionExtendedCardSampleBinding
 import com.victor.musicapp.presenter.ui.BaseFragment
 import kotlinx.android.synthetic.main.end_motion_extended_card_sample.*
@@ -32,8 +31,8 @@ class DetailFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        binding = EndMotionExtendedCardSampleBinding.inflate(inflater, container, false)
-        return inflater.inflate(R.layout.end_motion_extended_card_sample, container, false)
+        binding = EndMotionExtendedCardSampleBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
