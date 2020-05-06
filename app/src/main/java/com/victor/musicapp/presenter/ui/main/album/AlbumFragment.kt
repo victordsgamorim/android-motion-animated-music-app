@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.victor.musicapp.R
+import com.victor.musicapp.data.api.response.TrackItem
 import com.victor.musicapp.databinding.FragmentAlbumBinding
 import com.victor.musicapp.presenter.ui.BaseFragment
 import com.victor.musicapp.presenter.ui.main.album.viewpager.ViewPagerConfiguration
@@ -23,8 +23,6 @@ class AlbumFragment : BaseFragment() {
     @Inject
     lateinit var adapter: ViewPagerAdapter
     private lateinit var binding: FragmentAlbumBinding
-
-    private var indicatorPosition: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,23 +51,21 @@ class AlbumFragment : BaseFragment() {
     }
 
     private fun itemClickListener() {
-        adapter.onItemClickListener = {
-            fragmentTransition()
+        adapter.onItemClickListener = { trackItem ->
+            fragmentTransition(trackItem)
         }
     }
 
-    private fun fragmentTransition() {
+    private fun fragmentTransition(trackItem: TrackItem) {
         val extras = FragmentNavigatorExtras(
             main_album_cover to "album_cover",
-            main_album_card to "album_card"
+            fragment_detail_album_card to "album_card"
         )
 
-        findNavController().navigate(
-            R.id.action_albumFragment_to_detailFragment,
-            null,
-            null,
-            extras
-        )
+        val direction =
+            AlbumFragmentDirections.actionAlbumFragmentToDetailFragment(trackItem)
+
+        findNavController().navigate(direction, extras)
     }
 
     private fun setViewModelObserver() {

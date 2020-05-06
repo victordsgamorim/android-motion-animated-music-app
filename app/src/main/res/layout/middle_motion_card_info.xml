@@ -20,9 +20,9 @@
         android:textAppearance="?textAppearanceHeadline6"
         android:textSize="12sp"
         app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toBottomOf="@id/main_album_card"
-        app:layout_constraintEnd_toEndOf="@id/main_album_card"
-        app:layout_constraintStart_toStartOf="@id/main_album_card"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_detail_album_card"
+        app:layout_constraintEnd_toEndOf="@id/fragment_detail_album_card"
+        app:layout_constraintStart_toStartOf="@id/fragment_detail_album_card"
         app:layout_constraintTop_toBottomOf="@id/main_title_card" />
 
     <TextView
@@ -36,8 +36,8 @@
         android:text="@string/card_about"
         android:textAppearance="?textAppearanceHeadline5"
         android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="@id/main_album_card"
-        app:layout_constraintTop_toTopOf="@id/main_album_card" />
+        app:layout_constraintStart_toStartOf="@id/fragment_detail_album_card"
+        app:layout_constraintTop_toTopOf="@id/fragment_detail_album_card" />
 
 
     <TextView
@@ -50,7 +50,7 @@
         android:gravity="center"
         android:text="@string/card_more_details"
         app:layout_constraintBottom_toBottomOf="@id/main_title_card"
-        app:layout_constraintEnd_toEndOf="@id/main_album_card"
+        app:layout_constraintEnd_toEndOf="@id/fragment_detail_album_card"
         app:layout_constraintTop_toTopOf="@+id/main_title_card" />
 
 

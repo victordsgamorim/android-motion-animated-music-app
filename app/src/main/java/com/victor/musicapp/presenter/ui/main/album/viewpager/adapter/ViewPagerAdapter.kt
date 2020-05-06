@@ -52,13 +52,12 @@ class ViewPagerAdapter(
 
         fun bind(track: TrackItem) {
 
-            itemBinding.mainAlbumCard.setOnClickListener {
+            itemBinding.fragmentDetailAlbumCard.setOnClickListener {
                 onItemClickListener(track)
             }
 
             StartItemMotionSampleBinding.bind(bindingRoot).run {
                 requestManager.load(track.album.images[0].url)
-                    .transition(withCrossFade())
                     .into(this.mainAlbumCover)
             }
 

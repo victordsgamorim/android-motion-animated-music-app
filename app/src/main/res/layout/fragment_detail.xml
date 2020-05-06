@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/main_album_card"
+                    android:id="@+id/fragment_detail_album_card"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:background="@color/sunflower"
@@ -53,11 +53,11 @@
                     android:layout_height="150dp"
                     android:background="@color/tomato"
                     android:transitionName="album_cover"
-                    app:layout_constraintBottom_toBottomOf="@id/main_album_card"
+                    app:layout_constraintBottom_toBottomOf="@id/fragment_detail_album_card"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/main_album_card" />
+                    app:layout_constraintTop_toBottomOf="@id/fragment_detail_album_card" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.Toolbar

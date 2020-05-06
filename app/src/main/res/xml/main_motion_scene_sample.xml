@@ -48,7 +48,7 @@
                 android:translationY="0dp" />
         </Constraint>
 
-        <Constraint android:id="@+id/main_album_card">
+        <Constraint android:id="@+id/fragment_detail_album_card">
             <Layout
                 android:layout_width="130dp"
                 android:layout_height="130dp"
@@ -125,13 +125,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/main_album_card" />
+                app:layout_constraintTop_toBottomOf="@id/fragment_detail_album_card" />
             <Transform
                 android:rotationX="-55"
                 android:translationY="-48dp" />
         </Constraint>
 
-        <Constraint android:id="@+id/main_album_card">
+        <Constraint android:id="@+id/fragment_detail_album_card">
             <Layout
                 android:layout_width="300dp"
                 android:layout_height="300dp"

@@ -8,7 +8,7 @@
     app:showPaths="true">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/main_album_card"
+        android:id="@+id/fragment_detail_album_card"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:clickable="true"

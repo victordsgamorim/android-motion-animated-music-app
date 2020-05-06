@@ -1,5 +1,6 @@
 package com.victor.musicapp.data.api.response
 
+import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -8,6 +9,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.victor.musicapp.domain.model.SpotifyArtistTrackRequest
+import java.io.Serializable
 
 @Entity(
     tableName = "track",
@@ -31,6 +33,7 @@ data class Track(
     val tokenId: String
 )
 
+@Keep
 data class TrackItem(
 
     @SerializedName("id")
@@ -56,7 +59,7 @@ data class TrackItem(
     @SerializedName("preview_url")
     @Expose
     val preview_url: String
-)
+) : Serializable
 
 
 class Album(

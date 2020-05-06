@@ -8,14 +8,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.RequestManager
 import com.victor.musicapp.R
-import com.victor.musicapp.databinding.EndMotionExtendedCardSampleBinding
+import com.victor.musicapp.databinding.FragmentDetailBinding
 import com.victor.musicapp.presenter.ui.BaseFragment
-import kotlinx.android.synthetic.main.end_motion_extended_card_sample.*
+import kotlinx.android.synthetic.main.fragment_detail.*
+import java.lang.IllegalArgumentException
+import javax.inject.Inject
 
 class DetailFragment : BaseFragment() {
 
-    private lateinit var binding: EndMotionExtendedCardSampleBinding
+    private lateinit var binding: FragmentDetailBinding
+
+    @Inject
+    lateinit var requestManager: RequestManager
+    private val args by navArgs<DetailFragmentArgs>()
+
+    private val trackItem by lazy {
+        args.trackItem ?: throw IllegalArgumentException("Detail Fragment: Track Item is null")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,16 +43,35 @@ class DetailFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = EndMotionExtendedCardSampleBinding.inflate(inflater, container, false)
-        return binding.root
+        return initBinding(inflater, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setToolbarBackStack()
+    }
+
+    private fun setToolbarBackStack() {
         val activity = activity as AppCompatActivity
         activity.setSupportActionBar(toolbar)
         activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun initBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): View {
+        binding = FragmentDetailBinding.inflate(inflater, container, false)
+
+        with(binding) {
+            albumTrackName.text = trackItem.name
+            requestManager.load(trackItem.album.images[0].url)
+                .into(mainAlbumCover)
+        }
+
+
+        return binding.root
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -49,4 +80,6 @@ class DetailFragment : BaseFragment() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 }

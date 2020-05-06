@@ -1,6 +1,7 @@
 package com.victor.musicapp.presenter.ui.main.album.viewpager
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -10,8 +11,10 @@ import kotlin.math.abs
 
 class ViewPagerConfiguration(private val context: Context) {
 
-    private lateinit var pagetDimenstions: Pair<Float, Float>
-    private val OFFSCREEN_PAGE_LIMIT = 3
+    private var pagetDimenstions: Pair<Float, Float>
+
+    //    private val OFFSCREEN_PAGE_LIMIT = 3
+    private val OFFSCREEN_PAGE_LIMIT = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
 
     init {
         val pageMargin = context.resources.getDimensionPixelOffset(R.dimen.pageMargin).toFloat()
@@ -22,8 +25,6 @@ class ViewPagerConfiguration(private val context: Context) {
 
 
     fun initViewPagerConfig(viewPager: ViewPager2) {
-        viewPager.clipChildren = false
-        viewPager.clipToPadding = false
         viewPager.offscreenPageLimit = OFFSCREEN_PAGE_LIMIT
         viewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         viewPager.setPageTransformer(viewPagerTransformer())
@@ -49,6 +50,7 @@ class ViewPagerConfiguration(private val context: Context) {
         page: View
     ) {
         val myOffset = position * -(2 * pageOffset + pageMargin)
+        Log.e("Offset", myOffset.toString())
 
         when {
             position < -1 -> {
@@ -56,8 +58,8 @@ class ViewPagerConfiguration(private val context: Context) {
             }
             position <= 1 -> {
                 val scale = 0.85f + ((1 - abs(position)) * 0.15f)
-
-                page.translationX = myOffset
+                Log.e("Translation", "$myOffset")
+//                page.translationX = myOffset
                 page.scaleY = scale
                 page.alpha = scale
             }
