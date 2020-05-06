@@ -1,26 +1,22 @@
 package com.victor.musicapp.presenter.ui.main.album
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.victor.musicapp.R
 import com.victor.musicapp.databinding.FragmentAlbumBinding
 import com.victor.musicapp.presenter.ui.BaseFragment
-import com.victor.musicapp.presenter.ui.main.album.adapter.ViewPagerAdapter
-import kotlinx.android.synthetic.main.fragment_album.*
+import com.victor.musicapp.presenter.ui.main.album.viewpager.ViewPagerConfiguration
+import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.ViewPagerAdapter
+import com.victor.musicapp.presenter.ui.main.album.viewpager.indicator.IndicatorConfiguration
 import kotlinx.android.synthetic.main.start_item_motion_sample.*
 import javax.inject.Inject
+
 
 class AlbumFragment : BaseFragment() {
 
@@ -28,38 +24,53 @@ class AlbumFragment : BaseFragment() {
     lateinit var adapter: ViewPagerAdapter
     private lateinit var binding: FragmentAlbumBinding
 
+    private var indicatorPosition: Int = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        return initBinding(inflater, container)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setViewModelObserver()
+        itemClickListener()
+
+    }
+
+    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
-        binding.fragmentAlbumViewpager.adapter = adapter
+        val viewPagerConfiguration = ViewPagerConfiguration(fragmentContext)
+
+        with(binding) {
+            fragmentAlbumViewpager.adapter = adapter
+            viewPagerConfiguration.initViewPagerConfig(fragmentAlbumViewpager)
+        }
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
-        setViewModelObserver()
-//        initViewPagerConfig()
-
+    private fun itemClickListener() {
         adapter.onItemClickListener = {
-            val extras = FragmentNavigatorExtras(
-                main_album_cover to "album_cover",
-                main_album_card to "album_card"
-            )
-
-            findNavController().navigate(
-                R.id.action_albumFragment_to_detailFragment,
-                null,
-                null,
-                extras
-            )
+            fragmentTransition()
         }
-
     }
 
+    private fun fragmentTransition() {
+        val extras = FragmentNavigatorExtras(
+            main_album_cover to "album_cover",
+            main_album_card to "album_card"
+        )
+
+        findNavController().navigate(
+            R.id.action_albumFragment_to_detailFragment,
+            null,
+            null,
+            extras
+        )
+    }
 
     private fun setViewModelObserver() {
 
@@ -68,69 +79,24 @@ class AlbumFragment : BaseFragment() {
             val result = viewState.track?.items!!
             adapter.submitList(result)
 
-            setIndicators(adapter.itemCount)
-            setIndicatorOn(0)
+            val indicator =
+                IndicatorConfiguration.create(
+                    fragmentContext,
+                    binding.fragmentAlbumIndicator,
+                    adapter.itemCount
+                )
+
+            IndicatorConfiguration.setIndicatorOn(indicator.indicatorPosition)
 
             binding.fragmentAlbumViewpager.registerOnPageChangeCallback(object :
                 ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    setIndicatorOn(position)
+                    IndicatorConfiguration.setIndicatorOn(position)
                 }
             })
         })
 
-    }
-
-//This logic must be refactored in another class
-//    private fun initViewPagerConfig() {
-//        fragment_album_viewpager.clipChildren = false
-//        fragment_album_viewpager.clipToPadding = false
-//        fragment_album_viewpager.offscreenPageLimit = 3
-//        fragment_album_viewpager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-//    }
-//
-
-    private fun setIndicators(size: Int) {
-        val indicators = arrayOfNulls<ImageView>(size)
-        val layout = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-
-        layout.setMargins(8, 0, 0, 0)
-
-        for (i in 0 until size) {
-            indicators[i] = ImageView(fragmentContext)
-
-            indicators[i]?.setDrawableIndicator(
-                fragmentContext,
-                R.drawable.bottom_indicator_inactive
-            )
-            indicators[i]?.layoutParams = layout
-            binding.fragmentAlbumIndicator.addView(indicators[i])
-        }
-    }
-
-    private fun setIndicatorOn(index: Int) {
-        val childCount = binding.fragmentAlbumIndicator.childCount
-        for (i in 0 until childCount) {
-            val imageView = binding.fragmentAlbumIndicator.getChildAt(i) as ImageView
-
-            when (i) {
-                index -> imageView.setDrawableIndicator(
-                    fragmentContext,
-                    R.drawable.bottom_indicator_active
-                )
-                else -> imageView.setDrawableIndicator(
-                    fragmentContext,
-                    R.drawable.bottom_indicator_inactive
-                )
-            }
-        }
-    }
-
-    private fun ImageView.setDrawableIndicator(context: Context, drawable: Int) {
-        this.setImageDrawable(ContextCompat.getDrawable(context, drawable))
     }
 
 }

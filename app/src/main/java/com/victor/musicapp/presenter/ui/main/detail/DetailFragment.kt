@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import com.victor.musicapp.R
 import com.victor.musicapp.databinding.EndMotionExtendedCardSampleBinding
 import com.victor.musicapp.presenter.ui.BaseFragment
 import kotlinx.android.synthetic.main.end_motion_extended_card_sample.*
@@ -20,8 +21,7 @@ class DetailFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
 
         sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-                .setDuration(1000)
+            TransitionInflater.from(context).inflateTransition(R.transition.transition_to_detail)
 
         setHasOptionsMenu(true)
     }

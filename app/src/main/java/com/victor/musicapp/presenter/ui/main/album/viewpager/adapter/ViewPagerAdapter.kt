@@ -1,4 +1,4 @@
-package com.victor.musicapp.presenter.ui.main.album.adapter
+package com.victor.musicapp.presenter.ui.main.album.viewpager.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,9 +9,9 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.victor.musicapp.data.api.response.TrackItem
 import com.victor.musicapp.databinding.StartItemMotionSampleBinding
-import com.victor.musicapp.presenter.ui.main.album.adapter.callback.DiffUtilCallback
-import com.victor.musicapp.presenter.ui.main.album.adapter.motion.MotionItemInitializer
-import com.victor.musicapp.presenter.ui.main.album.adapter.motion.MotionLayoutListener
+import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.callback.DiffUtilCallback
+import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.motion.MotionItemInitializer
+import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.motion.MotionLayoutListener
 import kotlinx.android.synthetic.main.start_item_motion_sample.view.*
 
 class ViewPagerAdapter(
