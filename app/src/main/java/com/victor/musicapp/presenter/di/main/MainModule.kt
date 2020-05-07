@@ -2,6 +2,7 @@ package com.victor.musicapp.presenter.di.main
 
 import android.content.SharedPreferences
 import com.bumptech.glide.RequestManager
+import com.victor.musicapp.data.api.SpotifyArtistService
 import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
 import com.victor.musicapp.data.database.dao.SpotifyArtistTrackDao
@@ -22,7 +23,8 @@ class MainModule {
         prefEditor: SharedPreferences.Editor,
         pref: SharedPreferences,
         spotifyArtistTrackDao: SpotifyArtistTrackDao,
-        trackDao: TrackDao
+        trackDao: TrackDao,
+        artistService: SpotifyArtistService
     ) =
         MainRepository(
             service,
@@ -30,7 +32,8 @@ class MainModule {
             prefEditor,
             pref,
             spotifyArtistTrackDao,
-            trackDao
+            trackDao,
+            artistService
         )
 
     @MainScope

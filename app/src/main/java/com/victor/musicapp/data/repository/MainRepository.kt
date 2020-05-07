@@ -2,13 +2,16 @@ package com.victor.musicapp.data.repository
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
+import com.victor.musicapp.data.api.SpotifyArtistService
 import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
 import com.victor.musicapp.data.api.response.SpotifyApiResponse
+import com.victor.musicapp.data.api.response.SpotifyArtistResponse
 import com.victor.musicapp.data.api.response.SpotifyTokenResponse
-import com.victor.musicapp.data.database.entities.Track
 import com.victor.musicapp.data.database.dao.SpotifyArtistTrackDao
 import com.victor.musicapp.data.database.dao.TrackDao
+import com.victor.musicapp.data.database.entities.SpotifyArtistTrackRequest
+import com.victor.musicapp.data.database.entities.Track
 import com.victor.musicapp.data.util.*
 import com.victor.musicapp.data.util.SharedPreferencesConstants.GENERATED_TOKEN_TIME
 import com.victor.musicapp.data.util.SharedPreferencesConstants.LONG_DEFAULT
@@ -16,7 +19,6 @@ import com.victor.musicapp.data.util.SpotifyConstants.OAUTH_TOKEN_ACCESS_MAP
 import com.victor.musicapp.data.util.SpotifyConstants.OAUTH_TOKEN_HEADER
 import com.victor.musicapp.data.util.SpotifyConstants.STATUS_ERROR
 import com.victor.musicapp.domain.model.OAuthToken
-import com.victor.musicapp.data.database.entities.SpotifyArtistTrackRequest
 import com.victor.musicapp.domain.model.mapper.SpotifyArtistTrackMapper
 import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.OAuthTokenEvent
 import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.SearchTokenDatabaseEvent
@@ -32,7 +34,8 @@ class MainRepository @Inject constructor(
     private val prefEditor: SharedPreferences.Editor,
     private val pref: SharedPreferences,
     private val spotifyArtistTrackDao: SpotifyArtistTrackDao,
-    private val trackDao: TrackDao
+    private val trackDao: TrackDao,
+    private val artistService: SpotifyArtistService
 ) {
 
     private var repositoryJob: Job? = null
@@ -213,6 +216,39 @@ class MainRepository @Inject constructor(
 
         }.asLiveData
     }
+
+    fun getArtists(token: String, artistId: String): LiveData<DataState<MainViewState>> {
+        return object :
+            NetworkBoundResource<SpotifyArtistResponse, MainViewState>(isNetWorkRequested = true) {
+
+            override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<SpotifyArtistResponse>) {
+
+                onCompleteResponse(
+                    dataState = DataState.data(
+                        data = MainViewState(spotifyArtistResponse = response.body)
+                    )
+                )
+            }
+
+            override fun responseCall(): LiveData<GenericApiResponse<SpotifyArtistResponse>> {
+                return artistService.getArtist(header = token, id = artistId)
+            }
+
+            override fun setJob(job: Job) {
+                addNewJob(job)
+            }
+
+            override suspend fun loadCachedData() {
+                // do not do anything
+            }
+
+        }.asLiveData
+    }
+
+    private fun getToken() {
+
+    }
+
 
     private fun addNewJob(job: Job) {
         cancelJob()

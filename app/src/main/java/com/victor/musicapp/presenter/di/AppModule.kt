@@ -10,6 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.victor.musicapp.R
+import com.victor.musicapp.data.api.SpotifyArtistService
 import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
 import com.victor.musicapp.data.database.AppDatabase
@@ -99,12 +100,20 @@ object AppModule {
     ) =
         retrofit.create(SpotifyArtistTrackService::class.java)
 
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideSpotifyArtistService(
+        @Named("retrofit_artist_album") retrofit: Retrofit
+    ) =
+        retrofit.create(SpotifyArtistService::class.java)
+
 
     /**glide*/
     @JvmStatic
     @Singleton
     @Provides
-    fun provideRequestOption():RequestOptions = RequestOptions
+    fun provideRequestOption(): RequestOptions = RequestOptions
         .placeholderOf(R.drawable.fresno_album_cover)
         .error(R.drawable.fresno_album_cover)
 

@@ -15,5 +15,7 @@ sealed class MainStateEvent {
         var spotifyArtistTrackRequest: SpotifyArtistTrackRequest
     ) : MainStateEvent()
 
+    data class ArtistDetailsEvent(val token: String, val id: String) : MainStateEvent()
+
 
 }

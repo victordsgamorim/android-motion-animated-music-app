@@ -1,4 +1,4 @@
-package com.victor.musicapp.data.api.response
+package com.victor.musicapp.domain.dto.artist
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
@@ -6,12 +6,13 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class SpotifyErrorApiResponse(
-    @SerializedName("status")
-    @Expose
-    val status: Int,
+data class ArtistFollowers(
 
-    @SerializedName("message")
+    @SerializedName("href")
     @Expose
-    val message: String
+    val href: String,
+
+    @SerializedName("total")
+    @Expose
+    val total: Long
 ) : Parcelable

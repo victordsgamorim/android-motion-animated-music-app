@@ -11,6 +11,7 @@ abstract class BaseActivity : DaggerAppCompatActivity(), OnDataStateChangeListen
 
     @Inject
     protected lateinit var factory: ViewModelProviderFactory
+
     override fun onDataStateChanged(dataState: DataState<*>) {
         onLoadingData(dataState.loading)
 

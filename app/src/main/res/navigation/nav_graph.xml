@@ -11,6 +11,10 @@
             android:name="trackItem"
             app:argType="com.victor.musicapp.domain.dto.TrackItem"
             app:nullable="true" />
+        <argument
+            android:name="token"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/albumFragment"

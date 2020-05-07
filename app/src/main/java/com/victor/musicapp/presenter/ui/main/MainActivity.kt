@@ -9,8 +9,8 @@ import com.victor.musicapp.R
 import com.victor.musicapp.databinding.ActivityMainBinding
 import com.victor.musicapp.presenter.ui.BaseActivity
 import com.victor.musicapp.presenter.ui.main.state.MainStateEvent
-import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.*
-import kotlinx.android.synthetic.main.activity_main.*
+import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.CheckTokenIntegrityEvent
+import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.SpotifyArtistTrackRequestEvent
 
 class MainActivity : BaseActivity() {
 
@@ -61,6 +61,10 @@ class MainActivity : BaseActivity() {
                 viewState.track?.let { track ->
                     viewModel.setTrackViewState(track)
                 }
+
+                viewState.spotifyArtistResponse?.let { artist ->
+                    viewModel.setArtistViewState(artist)
+                }
             }
 
         })
@@ -79,9 +83,9 @@ class MainActivity : BaseActivity() {
 
     override fun onLoadingData(loading: Boolean) {
         if (loading) {
-            activity_main_progress_bar.visibility = View.VISIBLE
+            binding.activityMainProgressBar.visibility = View.VISIBLE
         } else {
-            activity_main_progress_bar.visibility = View.GONE
+            binding.activityMainProgressBar.visibility = View.GONE
         }
     }
 }
