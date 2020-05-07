@@ -1,7 +1,7 @@
 package com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.callback
 
 import androidx.recyclerview.widget.DiffUtil
-import com.victor.musicapp.data.api.response.TrackItem
+import com.victor.musicapp.domain.dto.TrackItem
 
 object DiffUtilCallback : DiffUtil.ItemCallback<TrackItem>() {
     override fun areItemsTheSame(oldItem: TrackItem, newItem: TrackItem): Boolean {

@@ -14,7 +14,6 @@ import com.victor.musicapp.R
 import com.victor.musicapp.databinding.FragmentDetailBinding
 import com.victor.musicapp.presenter.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_detail.*
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 class DetailFragment : BaseFragment() {
@@ -26,7 +25,7 @@ class DetailFragment : BaseFragment() {
     private val args by navArgs<DetailFragmentArgs>()
 
     private val trackItem by lazy {
-        args.trackItem ?: throw IllegalArgumentException("Detail Fragment: Track Item is null")
+        args.trackItem ?: throw IllegalArgumentException("Wrong Args")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

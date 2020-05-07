@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
-import com.victor.musicapp.data.api.response.Track
+import com.victor.musicapp.data.database.entities.Track
 import com.victor.musicapp.data.repository.MainRepository
 import com.victor.musicapp.data.util.DataState
 import com.victor.musicapp.presenter.ui.main.state.MainStateEvent

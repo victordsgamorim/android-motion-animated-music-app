@@ -8,8 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.victor.musicapp.data.api.response.TrackItem
 import com.victor.musicapp.databinding.FragmentAlbumBinding
+import com.victor.musicapp.domain.dto.TrackItem
 import com.victor.musicapp.presenter.ui.BaseFragment
 import com.victor.musicapp.presenter.ui.main.album.viewpager.ViewPagerConfiguration
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.ViewPagerAdapter

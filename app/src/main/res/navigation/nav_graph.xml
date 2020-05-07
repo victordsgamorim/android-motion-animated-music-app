@@ -9,7 +9,7 @@
         android:label="DetailFragment">
         <argument
             android:name="trackItem"
-            app:argType="com.victor.musicapp.data.api.response.TrackItem"
+            app:argType="com.victor.musicapp.domain.dto.TrackItem"
             app:nullable="true" />
     </fragment>
     <fragment

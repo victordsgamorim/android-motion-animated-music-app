@@ -1,7 +1,7 @@
 package com.victor.musicapp.presenter.ui.main.state
 
-import com.victor.musicapp.data.api.response.Track
-import com.victor.musicapp.domain.model.SpotifyArtistTrackRequest
+import com.victor.musicapp.data.database.entities.Track
+import com.victor.musicapp.data.database.entities.SpotifyArtistTrackRequest
 
 class MainViewState(
     var spotifyArtistTrackRequest: SpotifyArtistTrackRequest? = null,

@@ -6,7 +6,7 @@ import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
 import com.victor.musicapp.data.api.response.SpotifyApiResponse
 import com.victor.musicapp.data.api.response.SpotifyTokenResponse
-import com.victor.musicapp.data.api.response.Track
+import com.victor.musicapp.data.database.entities.Track
 import com.victor.musicapp.data.database.dao.SpotifyArtistTrackDao
 import com.victor.musicapp.data.database.dao.TrackDao
 import com.victor.musicapp.data.util.*
@@ -16,7 +16,7 @@ import com.victor.musicapp.data.util.SpotifyConstants.OAUTH_TOKEN_ACCESS_MAP
 import com.victor.musicapp.data.util.SpotifyConstants.OAUTH_TOKEN_HEADER
 import com.victor.musicapp.data.util.SpotifyConstants.STATUS_ERROR
 import com.victor.musicapp.domain.model.OAuthToken
-import com.victor.musicapp.domain.model.SpotifyArtistTrackRequest
+import com.victor.musicapp.data.database.entities.SpotifyArtistTrackRequest
 import com.victor.musicapp.domain.model.mapper.SpotifyArtistTrackMapper
 import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.OAuthTokenEvent
 import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.SearchTokenDatabaseEvent
@@ -95,10 +95,11 @@ class MainRepository @Inject constructor(
 
 
                 val result = response.body
-                val artistTrack = SpotifyArtistTrackRequest(
-                    authToken = result.accessToken!!,
-                    authTokenType = result.tokenType!!
-                )
+                val artistTrack =
+                    SpotifyArtistTrackRequest(
+                        authToken = result.accessToken!!,
+                        authTokenType = result.tokenType!!
+                    )
 
                 /** add SpotifyArtistTrackRequest to database if there is no token*/
                 spotifyArtistTrackDao.addAuthToken(spotifyArtistTrack = artistTrack)
@@ -152,7 +153,10 @@ class MainRepository @Inject constructor(
                 /**saving the track to the database */
                 val trackResult = response.body.result!!
                 val track =
-                    Track(items = trackResult.items, tokenId = spotifyArtistTrackRequest.authToken)
+                    Track(
+                        items = trackResult.items,
+                        tokenId = spotifyArtistTrackRequest.authToken
+                    )
                 trackDao.addTrack(track)
 
                 onCompleteResponse(

@@ -1,6 +1,6 @@
 package com.victor.musicapp.domain.model.mapper
 
-import com.victor.musicapp.domain.model.SpotifyArtistTrackRequest
+import com.victor.musicapp.data.database.entities.SpotifyArtistTrackRequest
 
 class SpotifyArtistTrackMapper(
     private val spotifyArtistTrack: SpotifyArtistTrackRequest

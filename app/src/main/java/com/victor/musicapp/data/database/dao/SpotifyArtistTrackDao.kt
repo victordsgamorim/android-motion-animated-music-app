@@ -1,7 +1,7 @@
 package com.victor.musicapp.data.database.dao
 
 import androidx.room.*
-import com.victor.musicapp.domain.model.SpotifyArtistTrackRequest
+import com.victor.musicapp.data.database.entities.SpotifyArtistTrackRequest
 
 @Dao
 interface SpotifyArtistTrackDao {

@@ -3,10 +3,10 @@ package com.victor.musicapp.data.database.converter
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.victor.musicapp.data.api.response.Album
-import com.victor.musicapp.data.api.response.AlbumImage
-import com.victor.musicapp.data.api.response.Artist
-import com.victor.musicapp.data.api.response.TrackItem
+import com.victor.musicapp.domain.dto.Album
+import com.victor.musicapp.domain.dto.AlbumImage
+import com.victor.musicapp.domain.dto.Artist
+import com.victor.musicapp.domain.dto.TrackItem
 import java.util.*
 
 class TrackItemConverter {
@@ -18,10 +18,11 @@ class TrackItemConverter {
     @TypeConverter
     fun stringToTrackItem(data: String?): List<TrackItem> {
         if (data == null) {
-            return Collections.emptyList();
+            return Collections.emptyList()
         }
+
         val listType = object : TypeToken<List<TrackItem>>() {}.type
-        return Gson().fromJson(data, listType);
+        return Gson().fromJson(data, listType)
     }
 }
 

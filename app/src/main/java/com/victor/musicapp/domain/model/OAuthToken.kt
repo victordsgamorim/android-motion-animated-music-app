@@ -8,7 +8,6 @@ data class OAuthToken(
     val tokenTime: Long = Calendar.getInstance().timeInMillis
 ) {
 
-
     override fun toString(): String {
         return "AuthToken [$oauthToken and $oauthTokenAccessMap]"
     }

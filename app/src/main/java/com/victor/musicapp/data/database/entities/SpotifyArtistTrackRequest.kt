@@ -1,4 +1,4 @@
-package com.victor.musicapp.domain.model
+package com.victor.musicapp.data.database.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -7,12 +7,6 @@ import java.util.*
 
 @Entity(tableName = "artist_track_token")
 data class SpotifyArtistTrackRequest(
-
-    /**doing that way it will only return 1 as ID
-     * the reason for doing that is because I dont want to store more than a token every time
-     * I generate a new one, but replacing the existed one and replacing it.*/
-//    @PrimaryKey(autoGenerate = false)
-//    val id: Long = 1L,
 
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "auth_token")

@@ -1,7 +1,7 @@
 package com.victor.musicapp.presenter.ui.main.state
 
 import com.victor.musicapp.domain.model.OAuthToken
-import com.victor.musicapp.domain.model.SpotifyArtistTrackRequest
+import com.victor.musicapp.data.database.entities.SpotifyArtistTrackRequest
 
 sealed class MainStateEvent {
 

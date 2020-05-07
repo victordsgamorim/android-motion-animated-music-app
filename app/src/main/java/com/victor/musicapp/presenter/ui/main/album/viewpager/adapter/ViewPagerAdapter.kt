@@ -6,9 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
-import com.victor.musicapp.data.api.response.TrackItem
 import com.victor.musicapp.databinding.StartItemMotionSampleBinding
+import com.victor.musicapp.domain.dto.TrackItem
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.callback.DiffUtilCallback
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.motion.MotionItemInitializer
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.motion.MotionLayoutListener
