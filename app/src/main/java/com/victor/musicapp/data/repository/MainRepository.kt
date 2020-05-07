@@ -1,6 +1,7 @@
 package com.victor.musicapp.data.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.victor.musicapp.data.api.SpotifyArtistService
 import com.victor.musicapp.data.api.SpotifyArtistTrackService
@@ -231,7 +232,7 @@ class MainRepository @Inject constructor(
             }
 
             override fun responseCall(): LiveData<GenericApiResponse<SpotifyArtistResponse>> {
-                return artistService.getArtist(header = token, id = artistId)
+                return artistService.getArtist(token, artistId)
             }
 
             override fun setJob(job: Job) {

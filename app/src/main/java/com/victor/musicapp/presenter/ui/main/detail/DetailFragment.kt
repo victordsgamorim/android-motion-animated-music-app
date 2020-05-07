@@ -59,7 +59,8 @@ class DetailFragment : BaseFragment() {
 
 
         /// Artist Details Event
-        val event = ArtistDetailsEvent(trackItem.artists[0].id, token)
+        val event = ArtistDetailsEvent(token, trackItem.artists[0].id)
+
         viewModel.addStateEvent(event)
 
 
