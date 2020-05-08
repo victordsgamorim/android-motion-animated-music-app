@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
-import com.victor.musicapp.data.api.response.SpotifyArtistResponse
 import com.victor.musicapp.data.database.entities.Track
 import com.victor.musicapp.data.repository.MainRepository
 import com.victor.musicapp.data.util.DataState
@@ -39,8 +38,8 @@ class MainViewModel @Inject constructor(
                 is SpotifyArtistTrackRequestEvent -> {
                     repository.getTrackResponse(stateEvent.spotifyArtistTrackRequest)
                 }
-                is ArtistDetailsEvent -> {
-                    repository.getArtists(stateEvent.token, stateEvent.id)
+                is InsertArtistsToDatabase -> {
+                    repository.getArtists(stateEvent.token, stateEvent.track)
                 }
             }
         }
@@ -62,16 +61,6 @@ class MainViewModel @Inject constructor(
             return
         }
         update.track = track
-        _viewState.value = update
-    }
-
-    fun setArtistViewState(artist: SpotifyArtistResponse) {
-        val update = getCurrentViewState()
-        if (update.spotifyArtistResponse == artist) {
-            return
-        }
-
-        update.spotifyArtistResponse = artist
         _viewState.value = update
     }
 

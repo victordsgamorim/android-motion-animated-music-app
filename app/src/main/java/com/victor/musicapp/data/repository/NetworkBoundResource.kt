@@ -7,15 +7,20 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 
-abstract class NetworkBoundResource<Response, ViewState>(isNetWorkRequested: Boolean = false) {
+abstract class NetworkBoundResource<Response, ViewState>(
+    isNetWorkRequested: Boolean = false,
+    isLoadingRequested: Boolean = false
+) {
 
     private val result = MediatorLiveData<DataState<ViewState>>()
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var job: CompletableJob
 
     init {
+        if (isLoadingRequested) {
+            setResultValue(dataState = DataState.load(true))
+        }
 
-        setResultValue(dataState = DataState.load(true))
 
         setJob(initJob())
 

@@ -52,18 +52,22 @@ class MainActivity : BaseActivity() {
 
                 viewState.event?.let { state -> addEventToViewModel(state) }
 
+                //Search for Artist Album
                 viewState.spotifyArtistTrackRequest?.let { spotifyArtistTrackRequest ->
                     val spotifyArtistTrackRequestEvent =
                         SpotifyArtistTrackRequestEvent(spotifyArtistTrackRequest)
                     addEventToViewModel(spotifyArtistTrackRequestEvent)
                 }
 
-                viewState.track?.let { track ->
-                    viewModel.setTrackViewState(track)
+
+                if (viewState.track != null && viewState.token != null) {
+                    val event =
+                        MainStateEvent.InsertArtistsToDatabase(viewState.token!!, viewState.track!!)
+                    addEventToViewModel(event)
                 }
 
-                viewState.spotifyArtistResponse?.let { artist ->
-                    viewModel.setArtistViewState(artist)
+                viewState.track?.let { track ->
+                    viewModel.setTrackViewState(track)
                 }
             }
 

@@ -1,13 +1,12 @@
 package com.victor.musicapp.data.repository
 
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.victor.musicapp.data.api.SpotifyArtistService
 import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
+import com.victor.musicapp.data.api.response.SpotifyListOfArtistsResponse
 import com.victor.musicapp.data.api.response.SpotifyApiResponse
-import com.victor.musicapp.data.api.response.SpotifyArtistResponse
 import com.victor.musicapp.data.api.response.SpotifyTokenResponse
 import com.victor.musicapp.data.database.dao.SpotifyArtistTrackDao
 import com.victor.musicapp.data.database.dao.TrackDao
@@ -85,7 +84,10 @@ class MainRepository @Inject constructor(
 
     fun generateNewToken(oAuthToken: OAuthToken): LiveData<DataState<MainViewState>> {
         return object :
-            NetworkBoundResource<SpotifyTokenResponse, MainViewState>(isNetWorkRequested = true) {
+            NetworkBoundResource<SpotifyTokenResponse, MainViewState>(
+                isNetWorkRequested = true,
+                isLoadingRequested = true
+            ) {
 
             override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<SpotifyTokenResponse>) {
 
@@ -143,7 +145,10 @@ class MainRepository @Inject constructor(
         val mapper = SpotifyArtistTrackMapper(spotifyArtistTrackRequest)
 
         return object :
-            NetworkBoundResource<SpotifyApiResponse, MainViewState>(isNetWorkRequested = true) {
+            NetworkBoundResource<SpotifyApiResponse, MainViewState>(
+                isNetWorkRequested = true,
+                isLoadingRequested = true
+            ) {
             override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<SpotifyApiResponse>) {
 
                 val result = response.body
@@ -163,9 +168,17 @@ class MainRepository @Inject constructor(
                     )
                 trackDao.addTrack(track)
 
+                /**search artist from api */
+                val token =
+                    "${spotifyArtistTrackRequest.authTokenType} ${spotifyArtistTrackRequest.authToken}"
+
+
+                /**add list of artist into database*/
+
+
                 onCompleteResponse(
                     dataState = DataState.data(
-                        data = MainViewState(track = track)
+                        data = MainViewState(track = track, token = token)
                     )
                 )
             }
@@ -185,7 +198,7 @@ class MainRepository @Inject constructor(
     }
 
     fun getCurrentToken(): LiveData<DataState<MainViewState>> {
-        return object : NetworkBoundResource<Void, MainViewState>() {
+        return object : NetworkBoundResource<Void, MainViewState>(isLoadingRequested = true) {
 
             override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<Void>) {
                 // do nothing!
@@ -218,21 +231,27 @@ class MainRepository @Inject constructor(
         }.asLiveData
     }
 
-    fun getArtists(token: String, artistId: String): LiveData<DataState<MainViewState>> {
+    fun getArtists(
+        token: String,
+        track: Track
+    ): LiveData<DataState<MainViewState>> {
+        val artist = track.items[0].artists
+
+        val mutableListOf = mutableListOf<String>()
+
+        for (i in artist) {
+            mutableListOf.add(i.id)
+        }
+
         return object :
-            NetworkBoundResource<SpotifyArtistResponse, MainViewState>(isNetWorkRequested = true) {
+            NetworkBoundResource<SpotifyListOfArtistsResponse, MainViewState>(isNetWorkRequested = true) {
 
-            override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<SpotifyArtistResponse>) {
-
-                onCompleteResponse(
-                    dataState = DataState.data(
-                        data = MainViewState(spotifyArtistResponse = response.body)
-                    )
-                )
+            override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<SpotifyListOfArtistsResponse>) {
+                /**list of artist to database */
             }
 
-            override fun responseCall(): LiveData<GenericApiResponse<SpotifyArtistResponse>> {
-                return artistService.getArtist(token, artistId)
+            override fun responseCall(): LiveData<GenericApiResponse<SpotifyListOfArtistsResponse>> {
+                return artistService.getArtist(token, mutableListOf)
             }
 
             override fun setJob(job: Job) {
@@ -245,11 +264,6 @@ class MainRepository @Inject constructor(
 
         }.asLiveData
     }
-
-    private fun getToken() {
-
-    }
-
 
     private fun addNewJob(job: Job) {
         cancelJob()

@@ -2,21 +2,17 @@ package com.victor.musicapp.presenter.ui.main.detail
 
 import android.os.Bundle
 import android.transition.TransitionInflater
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
 import com.victor.musicapp.R
 import com.victor.musicapp.databinding.FragmentDetailBinding
 import com.victor.musicapp.presenter.ui.BaseFragment
-import com.victor.musicapp.presenter.ui.main.state.MainStateEvent
-import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.*
 import kotlinx.android.synthetic.main.fragment_detail.*
 import javax.inject.Inject
 
@@ -30,10 +26,6 @@ class DetailFragment : BaseFragment() {
 
     private val trackItem by lazy {
         args.trackItem ?: throw IllegalArgumentException("Wrong Args")
-    }
-
-    private val token by lazy {
-        args.token ?: throw IllegalArgumentException("Token Args")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,19 +49,6 @@ class DetailFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setToolbarBackStack()
 
-
-        /// Artist Details Event
-        val event = ArtistDetailsEvent(token, trackItem.artists[0].id)
-
-        viewModel.addStateEvent(event)
-
-
-        viewModel.viewState.observe(fragmentContext, Observer { viewState ->
-            viewState.spotifyArtistResponse?.let { artist ->
-                Log.e("Artist", "Artist Name: ${artist.name} and popularity ${artist.popularity}")
-            }
-
-        })
     }
 
     private fun setToolbarBackStack() {

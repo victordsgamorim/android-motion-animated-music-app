@@ -22,7 +22,6 @@ class AlbumFragment : BaseFragment() {
     @Inject
     lateinit var adapter: ViewPagerAdapter
     private lateinit var binding: FragmentAlbumBinding
-    private lateinit var token: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,24 +50,18 @@ class AlbumFragment : BaseFragment() {
 
     private fun itemClickListener() {
         adapter.onItemClickListener = { trackItem ->
-            fragmentTransition(
-                token = token,
-                trackItem = trackItem
-            )
+            fragmentTransition(trackItem = trackItem)
         }
     }
 
-    private fun fragmentTransition(token: String, trackItem: TrackItem) {
+    private fun fragmentTransition(trackItem: TrackItem) {
         val extras = FragmentNavigatorExtras(
             main_album_cover to "album_cover",
             fragment_detail_album_card to "album_card"
         )
 
         val direction =
-            AlbumFragmentDirections.actionAlbumFragmentToDetailFragment(
-                token = token,
-                trackItem = trackItem
-            )
+            AlbumFragmentDirections.actionAlbumFragmentToDetailFragment(trackItem = trackItem)
 
         findNavController().navigate(direction, extras)
     }
@@ -79,12 +72,6 @@ class AlbumFragment : BaseFragment() {
 
             val result = viewState.track?.items!!
             adapter.submitList(result)
-
-
-            //init token variable
-            viewState.track?.let { track ->
-                token = "Bearer ${track.tokenId}"
-            }
 
             val indicator =
                 IndicatorConfiguration.create(

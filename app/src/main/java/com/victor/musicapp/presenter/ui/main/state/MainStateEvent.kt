@@ -2,6 +2,7 @@ package com.victor.musicapp.presenter.ui.main.state
 
 import com.victor.musicapp.domain.model.OAuthToken
 import com.victor.musicapp.data.database.entities.SpotifyArtistTrackRequest
+import com.victor.musicapp.data.database.entities.Track
 
 sealed class MainStateEvent {
 
@@ -15,7 +16,7 @@ sealed class MainStateEvent {
         var spotifyArtistTrackRequest: SpotifyArtistTrackRequest
     ) : MainStateEvent()
 
-    data class ArtistDetailsEvent(val token: String, val id: String) : MainStateEvent()
+    data class InsertArtistsToDatabase(val token: String, val track: Track) : MainStateEvent()
 
 
 }
