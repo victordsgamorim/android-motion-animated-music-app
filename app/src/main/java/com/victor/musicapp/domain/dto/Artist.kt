@@ -1,20 +1,20 @@
 package com.victor.musicapp.domain.dto
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.victor.musicapp.data.api.response.SpotifyErrorApiResponse
 import com.victor.musicapp.domain.dto.artist.ArtistExternalUrl
 import com.victor.musicapp.domain.dto.artist.ArtistFollowers
 import com.victor.musicapp.domain.dto.artist.ArtistImages
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@Entity
 data class Artist(
-    @SerializedName("error")
-    @Expose
-    val error: SpotifyErrorApiResponse,
 
+    @PrimaryKey(autoGenerate = false)
     @SerializedName("id")
     @Expose
     val id: String,
@@ -39,9 +39,4 @@ data class Artist(
     @Expose
     val popularity: Long
 
-) : Parcelable {
-
-    override fun toString(): String {
-        return "Artist(error=$error, id='$id', externalUrl=$externalUrl, followers=$followers, images=$images, name='$name', popularity=$popularity)"
-    }
-}
+) : Parcelable

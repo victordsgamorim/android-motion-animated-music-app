@@ -14,6 +14,7 @@ import com.victor.musicapp.data.api.SpotifyArtistService
 import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
 import com.victor.musicapp.data.database.AppDatabase
+import com.victor.musicapp.data.database.dao.ArtistDao
 import com.victor.musicapp.data.database.dao.SpotifyArtistTrackDao
 import com.victor.musicapp.data.database.dao.TrackDao
 import com.victor.musicapp.data.util.DATABASE_NAME
@@ -160,5 +161,11 @@ object AppModule {
     @Provides
     fun providesTrackDao(database: AppDatabase): TrackDao =
         database.trackDao()
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideArtistDao(database: AppDatabase): ArtistDao =
+        database.artistDao()
 
 }

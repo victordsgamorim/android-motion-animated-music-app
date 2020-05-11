@@ -12,7 +12,7 @@ interface SpotifyArtistService {
     @GET("artists/")
     fun getArtist(
         @Header("Authorization") header: String,
-        @Query("ids") id: List<String>
+        @Query("ids") ids: List<String>
     ): LiveData<GenericApiResponse<SpotifyListOfArtistsResponse>>
 
 }

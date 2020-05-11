@@ -7,6 +7,9 @@ import com.victor.musicapp.domain.dto.Album
 import com.victor.musicapp.domain.dto.AlbumImage
 import com.victor.musicapp.domain.dto.Artist
 import com.victor.musicapp.domain.dto.TrackItem
+import com.victor.musicapp.domain.dto.artist.ArtistExternalUrl
+import com.victor.musicapp.domain.dto.artist.ArtistFollowers
+import com.victor.musicapp.domain.dto.artist.ArtistImages
 import java.util.*
 
 class TrackItemConverter {
@@ -38,21 +41,21 @@ class AlbumConverter {
     }
 }
 
-class ArtistsConverter {
-    @TypeConverter
-    fun artistToString(artists: List<Artist>): String {
-        return Gson().toJson(artists)
-    }
-
-    @TypeConverter
-    fun stringToArtists(data: String?): List<Artist> {
-        if (data == null) {
-            return Collections.emptyList();
-        }
-        val listType = object : TypeToken<List<Artist>>() {}.type
-        return Gson().fromJson(data, listType);
-    }
-}
+//class ArtistsConverter {
+//    @TypeConverter
+//    fun artistToString(artists: List<Artist>): String {
+//        return Gson().toJson(artists)
+//    }
+//
+//    @TypeConverter
+//    fun stringToArtists(data: String?): List<Artist> {
+//        if (data == null) {
+//            return Collections.emptyList();
+//        }
+//        val listType = object : TypeToken<List<Artist>>() {}.type
+//        return Gson().fromJson(data, listType);
+//    }
+//}
 
 class AlbumImageConverter {
     @TypeConverter
@@ -67,6 +70,53 @@ class AlbumImageConverter {
         }
 
         val listType = object : TypeToken<List<AlbumImage>>() {}.type
+        return Gson().fromJson(data, listType)
+    }
+
+}
+
+class ArtistExternalUrlConverter {
+
+    @TypeConverter
+    fun externalUrlToString(externalObject: ArtistExternalUrl): String {
+        return Gson().toJson(externalObject)
+    }
+
+    @TypeConverter
+    fun stringToArtistExternalUrl(data: String?): ArtistExternalUrl {
+        return Gson().fromJson(data, ArtistExternalUrl::class.java)
+    }
+
+}
+
+class ArtistFollowersConverter {
+
+    @TypeConverter
+    fun artistFollowersToString(followers: ArtistFollowers): String {
+        return Gson().toJson(followers)
+    }
+
+    @TypeConverter
+    fun stringToArtistFollowers(data: String?): ArtistFollowers {
+        return Gson().fromJson(data, ArtistFollowers::class.java)
+    }
+
+}
+
+class ArtistImagesConverter {
+
+    @TypeConverter
+    fun artistImageToString(images: List<ArtistImages>): String {
+        return Gson().toJson(images)
+    }
+
+    @TypeConverter
+    fun stringToArtistImage(data: String?): List<ArtistImages> {
+        if (data == null) {
+            return Collections.emptyList()
+        }
+
+        val listType = object : TypeToken<List<ArtistImages>>() {}.type
         return Gson().fromJson(data, listType)
     }
 

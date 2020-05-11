@@ -5,6 +5,7 @@ import com.bumptech.glide.RequestManager
 import com.victor.musicapp.data.api.SpotifyArtistService
 import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
+import com.victor.musicapp.data.database.dao.ArtistDao
 import com.victor.musicapp.data.database.dao.SpotifyArtistTrackDao
 import com.victor.musicapp.data.database.dao.TrackDao
 import com.victor.musicapp.data.repository.MainRepository
@@ -24,7 +25,8 @@ class MainModule {
         pref: SharedPreferences,
         spotifyArtistTrackDao: SpotifyArtistTrackDao,
         trackDao: TrackDao,
-        artistService: SpotifyArtistService
+        artistService: SpotifyArtistService,
+        artistDao: ArtistDao
     ) =
         MainRepository(
             service,
@@ -33,7 +35,8 @@ class MainModule {
             pref,
             spotifyArtistTrackDao,
             trackDao,
-            artistService
+            artistService,
+            artistDao
         )
 
     @MainScope

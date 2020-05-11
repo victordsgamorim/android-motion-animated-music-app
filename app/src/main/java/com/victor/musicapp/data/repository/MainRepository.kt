@@ -1,13 +1,15 @@
 package com.victor.musicapp.data.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.victor.musicapp.data.api.SpotifyArtistService
 import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
-import com.victor.musicapp.data.api.response.SpotifyListOfArtistsResponse
 import com.victor.musicapp.data.api.response.SpotifyApiResponse
+import com.victor.musicapp.data.api.response.SpotifyListOfArtistsResponse
 import com.victor.musicapp.data.api.response.SpotifyTokenResponse
+import com.victor.musicapp.data.database.dao.ArtistDao
 import com.victor.musicapp.data.database.dao.SpotifyArtistTrackDao
 import com.victor.musicapp.data.database.dao.TrackDao
 import com.victor.musicapp.data.database.entities.SpotifyArtistTrackRequest
@@ -35,7 +37,8 @@ class MainRepository @Inject constructor(
     private val pref: SharedPreferences,
     private val spotifyArtistTrackDao: SpotifyArtistTrackDao,
     private val trackDao: TrackDao,
-    private val artistService: SpotifyArtistService
+    private val artistService: SpotifyArtistService,
+    private val artistsDao: ArtistDao
 ) {
 
     private var repositoryJob: Job? = null
@@ -235,23 +238,24 @@ class MainRepository @Inject constructor(
         token: String,
         track: Track
     ): LiveData<DataState<MainViewState>> {
-        val artist = track.items[0].artists
 
-        val mutableListOf = mutableListOf<String>()
-
-        for (i in artist) {
-            mutableListOf.add(i.id)
+        /**create a list of ids*/
+        val listOfIds = track.items.flatMap { trackItem ->
+            trackItem.artists.map { it.id }
         }
+
+        Log.e("Lista of artist", "$listOfIds")
 
         return object :
             NetworkBoundResource<SpotifyListOfArtistsResponse, MainViewState>(isNetWorkRequested = true) {
 
             override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<SpotifyListOfArtistsResponse>) {
-                /**list of artist to database */
+                val artists = response.body.artists
+                artistsDao.insertArtist(artists)
             }
 
             override fun responseCall(): LiveData<GenericApiResponse<SpotifyListOfArtistsResponse>> {
-                return artistService.getArtist(token, mutableListOf)
+                return artistService.getArtist(token, listOfIds)
             }
 
             override fun setJob(job: Job) {
