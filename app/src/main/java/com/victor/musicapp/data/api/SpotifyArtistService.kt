@@ -9,10 +9,10 @@ import retrofit2.http.Query
 
 interface SpotifyArtistService {
 
-    @GET("artists/")
+    @GET("artists?")
     fun getArtist(
         @Header("Authorization") header: String,
-        @Query("ids") ids: List<String>
+        @Query("ids", encoded = true) ids: String
     ): LiveData<GenericApiResponse<SpotifyListOfArtistsResponse>>
 
 }

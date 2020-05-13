@@ -1,6 +1,7 @@
 package com.victor.musicapp.data.repository
 
 import android.content.SharedPreferences
+import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.victor.musicapp.data.api.SpotifyArtistService
@@ -28,6 +29,7 @@ import com.victor.musicapp.presenter.ui.main.state.MainViewState
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
+import java.net.URLEncoder
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
@@ -239,12 +241,12 @@ class MainRepository @Inject constructor(
         track: Track
     ): LiveData<DataState<MainViewState>> {
 
+
         /**create a list of ids*/
-        val listOfIds = track.items.flatMap { trackItem ->
+        val ids = track.items.flatMap { trackItem ->
             trackItem.artists.map { it.id }
         }
-
-        Log.e("Lista of artist", "$listOfIds")
+        val encodedIds = URLEncoder.encode(TextUtils.join(",", ids), "utf-8")
 
         return object :
             NetworkBoundResource<SpotifyListOfArtistsResponse, MainViewState>(isNetWorkRequested = true) {
@@ -255,7 +257,7 @@ class MainRepository @Inject constructor(
             }
 
             override fun responseCall(): LiveData<GenericApiResponse<SpotifyListOfArtistsResponse>> {
-                return artistService.getArtist(token, listOfIds)
+                return artistService.getArtist(token, encodedIds)
             }
 
             override fun setJob(job: Job) {
