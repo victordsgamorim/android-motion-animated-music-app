@@ -2,17 +2,21 @@ package com.victor.musicapp.presenter.ui.main.detail
 
 import android.os.Bundle
 import android.transition.TransitionInflater
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
 import com.victor.musicapp.R
 import com.victor.musicapp.databinding.FragmentDetailBinding
 import com.victor.musicapp.presenter.ui.BaseFragment
+import com.victor.musicapp.presenter.ui.main.state.MainStateEvent
+import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.*
 import kotlinx.android.synthetic.main.fragment_detail.*
 import javax.inject.Inject
 
@@ -49,6 +53,18 @@ class DetailFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setToolbarBackStack()
 
+        /**search for random artist*/
+        val artistId = trackItem.artists.shuffled()[0].id
+        viewModel.addStateEvent(SearchForArtistDetails(artistId))
+
+
+
+        viewModel.viewState.observe(fragmentContext, Observer { viewState ->
+            viewState.artist?.let { artist ->
+                Log.e("DetailFragment", "RecebendoArtist: $artist")
+            }
+
+        })
     }
 
     private fun setToolbarBackStack() {
@@ -68,9 +84,6 @@ class DetailFragment : BaseFragment() {
             requestManager.load(trackItem.album.images[0].url)
                 .into(mainAlbumCover)
         }
-
-
-
 
         return binding.root
     }

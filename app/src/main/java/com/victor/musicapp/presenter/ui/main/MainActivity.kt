@@ -69,6 +69,10 @@ class MainActivity : BaseActivity() {
                 viewState.track?.let { track ->
                     viewModel.setTrackViewState(track)
                 }
+
+                viewState.artist?.let { artist ->
+                    viewModel.setArtistViewState(artist)
+                }
             }
 
         })

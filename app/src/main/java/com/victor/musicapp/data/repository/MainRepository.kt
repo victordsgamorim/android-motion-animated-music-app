@@ -236,7 +236,7 @@ class MainRepository @Inject constructor(
         }.asLiveData
     }
 
-    fun getArtists(
+    fun insertArtistsDatabase(
         token: String,
         track: Track
     ): LiveData<DataState<MainViewState>> {
@@ -266,6 +266,35 @@ class MainRepository @Inject constructor(
 
             override suspend fun loadCachedData() {
                 // do not do anything
+            }
+
+        }.asLiveData
+    }
+
+    fun getArtist(id: String): LiveData<DataState<MainViewState>> {
+        return object : NetworkBoundResource<Void, MainViewState>() {
+
+            override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<Void>) {
+                //do not do anything!
+            }
+
+            override fun responseCall(): LiveData<GenericApiResponse<Void>> {
+                return AbsentLiveData.create()
+            }
+
+            override fun setJob(job: Job) {
+                addNewJob(job)
+            }
+
+            override suspend fun loadCachedData() {
+                val artist = artistsDao.searchArtistById(id)
+                withContext(Main) {
+                    onCompleteResponse(
+                        dataState = DataState.data(
+                            data = MainViewState(artist = artist)
+                        )
+                    )
+                }
             }
 
         }.asLiveData

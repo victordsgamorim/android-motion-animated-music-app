@@ -17,6 +17,7 @@ sealed class MainStateEvent {
     ) : MainStateEvent()
 
     data class InsertArtistsToDatabase(val token: String, val track: Track) : MainStateEvent()
+    data class SearchForArtistDetails(val id: String) : MainStateEvent()
 
 
 }
