@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.victor.musicapp.R
-import kotlinx.android.synthetic.main.start_item_motion_sample.view.*
+import kotlinx.android.synthetic.main.item_motion_closed_card.view.*
 
 class MotionItemInitializer(
     private val context: Context,

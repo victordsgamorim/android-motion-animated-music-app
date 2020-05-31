@@ -15,9 +15,9 @@ import com.bumptech.glide.RequestManager
 import com.victor.musicapp.R
 import com.victor.musicapp.databinding.FragmentDetailBinding
 import com.victor.musicapp.presenter.ui.BaseFragment
-import com.victor.musicapp.presenter.ui.main.state.MainStateEvent
-import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.*
+import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.SearchForArtistDetails
 import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_details_bottom_boxes.*
 import javax.inject.Inject
 
 class DetailFragment : BaseFragment() {
@@ -51,6 +51,8 @@ class DetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        startTransitionBoxDetails()
         setToolbarBackStack()
 
         /**search for random artist*/
@@ -67,6 +69,11 @@ class DetailFragment : BaseFragment() {
         })
     }
 
+    private fun startTransitionBoxDetails() {
+        fragment_detail_motion_container.setTransition(R.id.start, R.id.end)
+        fragment_detail_motion_container.transitionToEnd()
+    }
+
     private fun setToolbarBackStack() {
         val activity = activity as AppCompatActivity
         activity.setSupportActionBar(toolbar)
@@ -80,6 +87,7 @@ class DetailFragment : BaseFragment() {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
 
         with(binding) {
+            albumTrackName.isSelected = true
             albumTrackName.text = trackItem.name
             requestManager.load(trackItem.album.images[0].url)
                 .into(mainAlbumCover)

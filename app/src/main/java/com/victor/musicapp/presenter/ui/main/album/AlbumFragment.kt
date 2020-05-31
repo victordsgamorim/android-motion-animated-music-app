@@ -14,7 +14,7 @@ import com.victor.musicapp.presenter.ui.BaseFragment
 import com.victor.musicapp.presenter.ui.main.album.viewpager.ViewPagerConfiguration
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.ViewPagerAdapter
 import com.victor.musicapp.presenter.ui.main.album.viewpager.indicator.IndicatorConfiguration
-import kotlinx.android.synthetic.main.start_item_motion_sample.*
+import kotlinx.android.synthetic.main.item_motion_closed_card.*
 import javax.inject.Inject
 
 class AlbumFragment : BaseFragment() {

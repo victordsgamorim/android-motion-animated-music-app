@@ -241,7 +241,6 @@ class MainRepository @Inject constructor(
         track: Track
     ): LiveData<DataState<MainViewState>> {
 
-
         /**create a list of ids*/
         val ids = track.items.flatMap { trackItem ->
             trackItem.artists.map { it.id }

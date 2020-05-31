@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
-import com.victor.musicapp.databinding.StartItemMotionSampleBinding
+import com.victor.musicapp.databinding.ItemMotionClosedCardBinding
 import com.victor.musicapp.domain.dto.TrackItem
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.callback.DiffUtilCallback
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.motion.MotionItemInitializer
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.motion.MotionLayoutListener
-import kotlinx.android.synthetic.main.start_item_motion_sample.view.*
+import kotlinx.android.synthetic.main.item_motion_closed_card.view.*
 
 class ViewPagerAdapter(
     private val requestManager: RequestManager,
@@ -23,7 +23,7 @@ class ViewPagerAdapter(
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val binding =
-            StartItemMotionSampleBinding.inflate(inflater, parent, false)
+            ItemMotionClosedCardBinding.inflate(inflater, parent, false)
         return ViewHolder(binding, context)
     }
 
@@ -33,7 +33,7 @@ class ViewPagerAdapter(
     }
 
     inner class ViewHolder(
-        private val itemBinding: StartItemMotionSampleBinding,
+        private val itemBinding: ItemMotionClosedCardBinding,
         context: Context
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
@@ -55,7 +55,7 @@ class ViewPagerAdapter(
                 onItemClickListener(track)
             }
 
-            StartItemMotionSampleBinding.bind(bindingRoot).run {
+            ItemMotionClosedCardBinding.bind(bindingRoot).run {
                 requestManager.load(track.album.images[0].url)
                     .into(this.mainAlbumCover)
             }

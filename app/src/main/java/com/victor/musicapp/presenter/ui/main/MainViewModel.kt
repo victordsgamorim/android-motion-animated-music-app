@@ -32,7 +32,6 @@ class MainViewModel @Inject constructor(
             is MainStateEvent.InsertArtistsToDatabase -> {
                 repository.insertArtistsDatabase(stateEvent.token, stateEvent.track)
             }
-
             is MainStateEvent.SearchForArtistDetails -> {
                 repository.getArtist(stateEvent.id)
             }
