@@ -2,7 +2,6 @@ package com.victor.musicapp.presenter.ui.main.detail
 
 import android.os.Bundle
 import android.transition.TransitionInflater
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -14,11 +13,16 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
 import com.victor.musicapp.R
 import com.victor.musicapp.databinding.FragmentDetailBinding
+import com.victor.musicapp.presenter.util.getDominantColourFromImage
 import com.victor.musicapp.presenter.ui.BaseFragment
 import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.SearchForArtistDetails
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_details_bottom_boxes.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 class DetailFragment : BaseFragment() {
 
@@ -59,11 +63,22 @@ class DetailFragment : BaseFragment() {
         val artistId = trackItem.artists.shuffled()[0].id
         viewModel.addStateEvent(SearchForArtistDetails(artistId))
 
-
-
         viewModel.viewState.observe(fragmentContext, Observer { viewState ->
             viewState.artist?.let { artist ->
-                Log.e("DetailFragment", "RecebendoArtist: $artist")
+
+                binding.albumTrackRate.text = artist.popularity.toString()
+
+                if (artist.images.isNotEmpty()) {
+                    requestManager.load(artist.images[0].url).into(binding.fragmentDetailAlbumCard)
+
+                    CoroutineScope(IO).launch {
+                        getDominantColourFromImage(fragmentContext, artist.images[0].url) { color ->
+                            binding.exampleView.setBackgroundColor(color)
+                        }
+                    }
+
+                }
+
             }
 
         })
@@ -89,6 +104,7 @@ class DetailFragment : BaseFragment() {
         with(binding) {
             albumTrackName.isSelected = true
             albumTrackName.text = trackItem.name
+
             requestManager.load(trackItem.album.images[0].url)
                 .into(mainAlbumCover)
         }

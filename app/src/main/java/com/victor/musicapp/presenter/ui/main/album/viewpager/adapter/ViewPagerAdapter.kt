@@ -8,10 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.victor.musicapp.databinding.ItemMotionClosedCardBinding
 import com.victor.musicapp.domain.dto.TrackItem
+import com.victor.musicapp.presenter.util.getDominantColourFromImage
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.callback.DiffUtilCallback
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.motion.MotionItemInitializer
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.motion.MotionLayoutListener
 import kotlinx.android.synthetic.main.item_motion_closed_card.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ViewPagerAdapter(
     private val requestManager: RequestManager,
@@ -34,7 +38,7 @@ class ViewPagerAdapter(
 
     inner class ViewHolder(
         private val itemBinding: ItemMotionClosedCardBinding,
-        context: Context
+        private val context: Context
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
         private val bindingRoot by lazy {
@@ -56,14 +60,17 @@ class ViewPagerAdapter(
             }
 
             ItemMotionClosedCardBinding.bind(bindingRoot).run {
+
+                /**image dominant colour*/
+                CoroutineScope(Dispatchers.IO).launch {
+                    getDominantColourFromImage(context, track.album.images[0].url) { color ->
+                        fragmentDetailAlbumCard.setCardBackgroundColor(color)
+                    }
+                }
+
                 requestManager.load(track.album.images[0].url)
                     .into(this.mainAlbumCover)
             }
-
-
-//            EndMotionExtendedCardInfoBinding.bind(bindingRoot).run {
-//                this.mainBandName.text = track.name
-//            }
 
             bindingRoot.item_motion_layout.setTransitionListener(MotionLayoutListener)
         }

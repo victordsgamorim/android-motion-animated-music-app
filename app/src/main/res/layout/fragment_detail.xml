@@ -34,6 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:background="@color/sunflower"
+                    android:scaleType="centerCrop"
                     android:transitionName="album_card"
                     app:layout_constraintDimensionRatio="16:9"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -102,6 +103,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/fragment_detail_album_card"
                     tools:background="@tools:sample/avatars" />
+
+                <View
+                    android:id="@+id/example_view"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@color/sunflower"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.Toolbar
