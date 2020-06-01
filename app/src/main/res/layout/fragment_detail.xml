@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fregment_detal_coordinator_toolbar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,108 +16,32 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/fragment_detail_collapsingtoolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/fragment_detail_album_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:background="@color/sunflower"
-                    android:scaleType="centerCrop"
-                    android:transitionName="album_card"
-                    app:layout_constraintDimensionRatio="16:9"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:background="@tools:sample/backgrounds/scenic" />
-
-
-                <TextView
-                    android:id="@+id/album_track_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-
-                    android:ellipsize="marquee"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-
-                    android:text="asdasdasdasdasdasdasdasdasdasdasasdasdasd"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:translationY="-50dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/main_album_cover"
-                    app:layout_constraintTop_toTopOf="@id/main_album_cover" />
-
-
-                <ImageView
-                    android:id="@+id/album_track_name_star"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/ic_star_white_24dp"
-                    android:translationY="-50dp"
-                    app:layout_constraintStart_toStartOf="@id/album_track_name"
-                    app:layout_constraintTop_toBottomOf="@id/album_track_name" />
-
-                <TextView
-                    android:id="@+id/album_track_rate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="5.0"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:translationY="-50dp"
-                    app:layout_constraintBottom_toBottomOf="@id/album_track_name_star"
-                    app:layout_constraintStart_toEndOf="@id/album_track_name_star"
-                    app:layout_constraintTop_toTopOf="@id/album_track_name_star" />
-
-                <ImageView
-                    android:id="@+id/main_album_cover"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:background="@color/tomato"
-                    android:transitionName="album_cover"
-                    android:translationY="-50dp"
-                    app:layout_constraintBottom_toBottomOf="@id/fragment_detail_album_card"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/fragment_detail_album_card"
-                    tools:background="@tools:sample/avatars" />
-
-                <View
-                    android:id="@+id/example_view"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@color/sunflower"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <include
+                android:id="@+id/fragment_detail_extended_image"
+                layout="@layout/fragment_detail_toolbar_extended_image" />
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/fragment_detail_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Toolbar Title" />
+
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -130,7 +53,9 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/fragment_details_bottom_boxes" />
+        <include
+            android:id="@+id/fragment_details_bottom_boxes"
+            layout="@layout/fragment_details_bottom_boxes" />
 
     </androidx.core.widget.NestedScrollView>
 

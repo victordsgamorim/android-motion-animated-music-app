@@ -1,7 +1,6 @@
 package com.victor.musicapp.presenter.di.main
 
 import android.content.SharedPreferences
-import com.bumptech.glide.RequestManager
 import com.victor.musicapp.data.api.SpotifyArtistService
 import com.victor.musicapp.data.api.SpotifyArtistTrackService
 import com.victor.musicapp.data.api.SpotifyTokenService
@@ -10,6 +9,7 @@ import com.victor.musicapp.data.database.dao.SpotifyArtistTrackDao
 import com.victor.musicapp.data.database.dao.TrackDao
 import com.victor.musicapp.data.repository.MainRepository
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.ViewPagerAdapter
+import com.victor.musicapp.presenter.util.GlideImageLoader
 import dagger.Module
 import dagger.Provides
 
@@ -41,7 +41,7 @@ class MainModule {
 
     @MainScope
     @Provides
-    fun provideAdapter(requestManager: RequestManager) = ViewPagerAdapter(requestManager)
+    fun provideAdapter(imageLoader: GlideImageLoader) = ViewPagerAdapter(imageLoader)
 
 
 }

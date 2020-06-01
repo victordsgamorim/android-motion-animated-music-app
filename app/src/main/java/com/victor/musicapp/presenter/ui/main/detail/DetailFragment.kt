@@ -2,6 +2,7 @@ package com.victor.musicapp.presenter.ui.main.detail
 
 import android.os.Bundle
 import android.transition.TransitionInflater
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -10,14 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.RequestManager
 import com.victor.musicapp.R
 import com.victor.musicapp.databinding.FragmentDetailBinding
-import com.victor.musicapp.presenter.util.getDominantColourFromImage
 import com.victor.musicapp.presenter.ui.BaseFragment
 import com.victor.musicapp.presenter.ui.main.state.MainStateEvent.SearchForArtistDetails
+import com.victor.musicapp.presenter.util.*
 import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.fragment_details_bottom_boxes.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -29,8 +28,10 @@ class DetailFragment : BaseFragment() {
     private lateinit var binding: FragmentDetailBinding
 
     @Inject
-    lateinit var requestManager: RequestManager
+    lateinit var imageLoader: GlideImageLoader
+
     private val args by navArgs<DetailFragmentArgs>()
+
 
     private val trackItem by lazy {
         args.trackItem ?: throw IllegalArgumentException("Wrong Args")
@@ -59,24 +60,46 @@ class DetailFragment : BaseFragment() {
         startTransitionBoxDetails()
         setToolbarBackStack()
 
-        /**search for random artist*/
+        /**search for random artist event*/
         val artistId = trackItem.artists.shuffled()[0].id
         viewModel.addStateEvent(SearchForArtistDetails(artistId))
 
+
+        /**artist data response through event*/
         viewModel.viewState.observe(fragmentContext, Observer { viewState ->
             viewState.artist?.let { artist ->
 
-                binding.albumTrackRate.text = artist.popularity.toString()
+                /**artist rate*/
+                binding.fragmentDetailExtendedImage.albumTrackRate.text =
+                    artist.popularity.convertPopularityToDouble()
 
+                /**artist toolbar*/
                 if (artist.images.isNotEmpty()) {
-                    requestManager.load(artist.images[0].url).into(binding.fragmentDetailAlbumCard)
 
-                    CoroutineScope(IO).launch {
-                        getDominantColourFromImage(fragmentContext, artist.images[0].url) { color ->
-                            binding.exampleView.setBackgroundColor(color)
-                        }
+                    /**extended artist photo at toolbar*/
+                    imageLoader.setUrlToImage(
+                        artist.images[0].url,
+                        binding.fragmentDetailExtendedImage.fragmentDetailAlbumCard
+                    )
+
+                    /**dominant colour after image added to toolbar*/
+                    setDominantColourToView(fragmentContext, artist.images[0].url) { colour ->
+                        setColourToView(colour)
                     }
 
+                } else {
+                    /**if there is no artist cover image, load from album cover*/
+                    imageLoader.setUrlToImage(
+                        trackItem.album.images[0].url,
+                        binding.fragmentDetailExtendedImage.fragmentDetailAlbumCard
+                    )
+
+                    setDominantColourToView(
+                        fragmentContext,
+                        trackItem.album.images[0].url
+                    ) { colour ->
+                        setColourToView(colour)
+                    }
                 }
 
             }
@@ -84,14 +107,35 @@ class DetailFragment : BaseFragment() {
         })
     }
 
+
+    private fun setColourToView(colour: Int) {
+        with(binding) {
+            /**set colour to collapsed toolbar*/
+            fragmentDetailCollapsingtoolbar.setContentScrimColor(colour)
+            fragmentDetailCollapsingtoolbar.setStatusBarScrimColor(colour)
+
+            /**set colour to material design boxes*/
+            fragmentDetailsBottomBoxes.bandDetailsAbout.setCardBackgroundColor(colour)
+            fragmentDetailsBottomBoxes.bandDetailsIcons.setCardBackgroundColor(colour)
+        }
+    }
+
     private fun startTransitionBoxDetails() {
-        fragment_detail_motion_container.setTransition(R.id.start, R.id.end)
-        fragment_detail_motion_container.transitionToEnd()
+        with(binding.fragmentDetailsBottomBoxes.fragmentDetailMotionContainer) {
+            setTransition(R.id.start, R.id.end)
+            transitionToEnd()
+        }
+
+        with(binding.fragmentDetailExtendedImage.fragmentDetailMotionContainerToolbar) {
+            setTransition(R.id.start, R.id.end)
+            transitionToEnd()
+        }
+
     }
 
     private fun setToolbarBackStack() {
         val activity = activity as AppCompatActivity
-        activity.setSupportActionBar(toolbar)
+        activity.setSupportActionBar(fragment_detail_toolbar)
         activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -102,11 +146,12 @@ class DetailFragment : BaseFragment() {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
 
         with(binding) {
-            albumTrackName.isSelected = true
-            albumTrackName.text = trackItem.name
-
-            requestManager.load(trackItem.album.images[0].url)
-                .into(mainAlbumCover)
+            fragmentDetailExtendedImage.albumTrackName.isSelected = true
+            fragmentDetailExtendedImage.albumTrackName.text = trackItem.name
+            imageLoader.setUrlToImage(
+                trackItem.album.images[0].url,
+                fragmentDetailExtendedImage.mainAlbumCover
+            )
         }
 
         return binding.root
@@ -118,6 +163,5 @@ class DetailFragment : BaseFragment() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 
 }

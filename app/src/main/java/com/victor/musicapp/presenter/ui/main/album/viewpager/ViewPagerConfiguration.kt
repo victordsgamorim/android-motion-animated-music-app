@@ -50,15 +50,13 @@ class ViewPagerConfiguration(private val context: Context) {
         page: View
     ) {
         val myOffset = position * -(2 * pageOffset + pageMargin)
-        Log.e("Offset", myOffset.toString())
-
         when {
             position < -1 -> {
                 page.translationX = -myOffset
             }
             position <= 1 -> {
                 val scale = 0.85f + ((1 - abs(position)) * 0.15f)
-                Log.e("Translation", "$myOffset")
+
 //                page.translationX = myOffset
                 page.scaleY = scale
                 page.alpha = scale

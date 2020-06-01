@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/fragment_detail_album_card"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:transitionName="album_card"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        tools:background="@tools:sample/backgrounds/scenic" />
+
+
+    <ImageView
+        android:id="@+id/main_album_cover"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@color/tomato"
+        android:elevation="15dp"
+        android:transitionName="album_cover"
+        android:translationY="-50dp"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_detail_album_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_detail_album_card"
+        tools:background="@tools:sample/avatars" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16sp"
+        android:layout_marginEnd="16sp"
+        android:translationY="-50dp"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_detail_album_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/main_album_cover"
+        app:layout_constraintTop_toTopOf="@id/main_album_cover">
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/fragment_detail_motion_container_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutDescription="@xml/fragment_detail_toolbar_extended_image_scene">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/material_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/black_60_opacity"
+                app:cardElevation="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/album_track_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:marqueeRepeatLimit="marquee_forever"
+
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="asdasdasdasdasdasdasdasdasdasdasasdasdasd" />
+
+                    <ImageView
+                        android:id="@+id/album_track_name_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_star_white_24dp"
+                        app:layout_constraintStart_toStartOf="@id/album_track_name"
+                        app:layout_constraintTop_toBottomOf="@id/album_track_name" />
+
+                    <TextView
+                        android:id="@+id/album_track_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/album_track_name_star"
+                        app:layout_constraintStart_toEndOf="@id/album_track_name_star"
+                        app:layout_constraintTop_toTopOf="@id/album_track_name_star"
+                        tools:text="5.0" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

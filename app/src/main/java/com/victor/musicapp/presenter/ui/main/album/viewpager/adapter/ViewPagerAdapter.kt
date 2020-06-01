@@ -5,20 +5,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.RequestManager
 import com.victor.musicapp.databinding.ItemMotionClosedCardBinding
 import com.victor.musicapp.domain.dto.TrackItem
 import com.victor.musicapp.presenter.util.getDominantColourFromImage
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.callback.DiffUtilCallback
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.motion.MotionItemInitializer
 import com.victor.musicapp.presenter.ui.main.album.viewpager.adapter.motion.MotionLayoutListener
+import com.victor.musicapp.presenter.util.GlideImageLoader
 import kotlinx.android.synthetic.main.item_motion_closed_card.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ViewPagerAdapter(
-    private val requestManager: RequestManager,
+    private val imageLoader: GlideImageLoader,
     var onItemClickListener: (TrackItem) -> Unit = {}
 ) :
     ListAdapter<TrackItem, ViewPagerAdapter.ViewHolder>(DiffUtilCallback) {
@@ -63,13 +63,18 @@ class ViewPagerAdapter(
 
                 /**image dominant colour*/
                 CoroutineScope(Dispatchers.IO).launch {
-                    getDominantColourFromImage(context, track.album.images[0].url) { color ->
-                        fragmentDetailAlbumCard.setCardBackgroundColor(color)
+                    getDominantColourFromImage(
+                        context,
+                        track.album.images[0].url
+                    ) { colour ->
+                        fragmentDetailAlbumCard.setCardBackgroundColor(colour)
                     }
                 }
 
-                requestManager.load(track.album.images[0].url)
-                    .into(this.mainAlbumCover)
+                imageLoader.setUrlToImage(
+                    track.album.images[0].url,
+                    mainAlbumCover
+                )
             }
 
             bindingRoot.item_motion_layout.setTransitionListener(MotionLayoutListener)

@@ -22,6 +22,7 @@ import com.victor.musicapp.data.util.LiveDataCallAdapterFactory
 import com.victor.musicapp.data.util.SharedPreferencesConstants.SHARED_PREFERENCES_NAME
 import com.victor.musicapp.data.util.SpotifyConstants.BASE_URL_ALBUM
 import com.victor.musicapp.data.util.SpotifyConstants.BASE_URL_TOKEN
+import com.victor.musicapp.presenter.util.GlideImageLoader
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -167,5 +168,11 @@ object AppModule {
     @Provides
     fun provideArtistDao(database: AppDatabase): ArtistDao =
         database.artistDao()
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideGlideImageLoad(requestManager: RequestManager): GlideImageLoader =
+        GlideImageLoader(requestManager)
 
 }
